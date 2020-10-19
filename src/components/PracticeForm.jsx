@@ -14,7 +14,6 @@ const PracticeFrom = () => {
         duration: "",
         durationCondition: "Minutes",
         total: 0,
-        input_time: 0,
     });
     //Spinner
     const [isSpin, setSpin] = useState(false)
@@ -203,7 +202,6 @@ const PracticeFrom = () => {
                     duration: "",
                     durationCondition: "Minutes",
                     total: 0,
-                    input_time: 0,
                 });
 
                 setViewState("que_info");
