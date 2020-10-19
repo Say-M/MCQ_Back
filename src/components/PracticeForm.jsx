@@ -10,10 +10,9 @@ const PracticeFrom = () => {
         title: "",
         category: "HSC",
         university: "",
-        year: "",
-        precent: "",
-        time: "",
-        timeCondition: "Minutes",
+        percent: "",
+        duration: "",
+        durationCondition: "Minutes",
         total: 0,
         input_time: 0,
     });
@@ -52,7 +51,7 @@ const PracticeFrom = () => {
     }, []);
 
     //Time
-    const timeCondition = ["Minutes", "Seconds"];
+    const durationCondition = ["Minutes", "Seconds"];
     //Option
     const [optInput, setOptInput] = useState([{
         question: "",
@@ -83,8 +82,8 @@ const PracticeFrom = () => {
     //Practice submit
     const handleSubmit = (e) => {
         e.preventDefault();
-        const { title, category, year, precent, time } = formValue;
-        if (title !== "" && category !== "" && year !== "" && precent > 0 && time > 1) {
+        const { title, category, percent, duration } = formValue;
+        if (title !== "" && category !== "" && percent > 0 && duration > 1) {
             setAddQuestion(false)
         } else {
             setAlert(true);
@@ -174,7 +173,7 @@ const PracticeFrom = () => {
 
         const document = db.collection("Questions").doc();
         data.id = document.id;
-        data.time = data.time * 1000;
+        data.duration = data.duration * 1000;
         document
             .set(data)
             .then(() => {
@@ -198,10 +197,9 @@ const PracticeFrom = () => {
                     title: "",
                     category: "HSC",
                     university: "",
-                    year: "",
-                    precent: "",
-                    time: "",
-                    timeCondition: "Minutes",
+                    percent: "",
+                    duration: "",
+                    durationCondition: "Minutes",
                     total: 0,
                     input_time: 0,
                 });
@@ -243,17 +241,14 @@ const PracticeFrom = () => {
                     </div>
                     : null}
                 <div className="form-group">
-                    <Input placeholder="Year" clName="form-control" type="number" name="year" func={handleChange} val={formValue.year} />
-                </div>
-                <div className="form-group">
-                    <Input placeholder="Precent" clName="form-control" type="number" name="precent" func={handleChange} val={formValue.precent} />
+                    <Input placeholder="Percent" clName="form-control" type="number" name="percent" func={handleChange} val={formValue.percent} />
                 </div>
                 <div className="form-group form-row">
                     <div className="col-sm-8">
-                        <Input placeholder="Time" clName="form-control" type="number" name="time" func={handleChange} val={formValue.time} />
+                        <Input placeholder="Duration" clName="form-control" type="number" name="duration" func={handleChange} val={formValue.duration} />
                     </div>
                     <div className="col-sm-4">
-                        <CustomSelect clName="custom-select" name="timeCondition" func={handleChange} val={formValue.timeCondition} options={timeCondition} />
+                        <CustomSelect clName="custom-select" name="durationCondition" func={handleChange} val={formValue.durationCondition} options={durationCondition} />
                     </div>
                 </div>
                 <div className="text-right form-group">

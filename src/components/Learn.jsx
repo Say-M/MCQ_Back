@@ -3,12 +3,27 @@ import { Link } from "react-router-dom";
 import db from "./firebase_config";
 
 const Learn = () => {
-    const categroys = ["HSC", "Admission", "Olympain"]
+    const [questions, setQuestions] = useState([])
+    const categroys = ["HSC", "Admission", "Olympaid"]
     const [university, setUniversity] = useState([]);
     const [categoryValue, setCategoryValue] = useState({
         category: "HSC",
         university: "",
     });
+
+    useEffect(() => {
+        let arr = [];
+        const snap = db
+            .collection("Questions")
+            .where("category", "==", categoryValue.category)
+            .get()
+            .then((snap) => {
+                snap.forEach((d) => {
+                    arr.push(d.data());
+                });
+                setQuestions(arr);
+            });
+    }, [categoryValue.category]);
     const updateInfoForm = (data) => {
         setCategoryValue(Object.assign({}, categoryValue, data));
     };
@@ -44,39 +59,27 @@ const Learn = () => {
                         {categroys.map((categroy, i) => <option key={i} value={categroy}>{categroy}</option>)}
                     </select>
                 </div>
-                {categoryValue.category === "Admission" ?
+                {/* {categoryValue.category === "Admission" ?
                     <div className="form-group col-sm-6 col-lg-5">
                         <select className="custom-select" value={categoryValue.university} name="university" onChange={handleChange}>
                             {university.map((versity, i) => <option key={i} value={versity.name}>{versity.name}</option>)}
                         </select>
-                    </div> : null}
+                    </div> : null} */}
             </div>
             <div className="text-nowrap table-responsive">
-                <table className="table table-hover table-bordered">
+                <table className="table text-center table-hover table-bordered">
                     <thead className="thead-light">
                         <tr>
+                            <th scope="col" style={{ width: "400px" }}>Title</th>
                             <th scope="col">Categroy</th>
-                            <th scope="col">Title</th>
+                            {categoryValue.category === "Admission" ? <th scope="col">University</th> : null}
                             <th scope="col">Pass (Percent)</th>
                             <th scope="col">Question</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                            <td>@mdo</td>
-                        </tr>
+                        {questions.map((question, i) => <tr key={i}><td>{question.title}</td><td>{question.category}</td>{categoryValue.category === "Admission" ? <td>{question.university}</td> : null}<td>{question.percent}</td><td>{question.total}</td><td><button className="btn-outline-primary btn btn-sm">Show</button></td></tr>)}
                     </tbody>
                 </table>
             </div>
