@@ -19,7 +19,7 @@ const Header = () => {
                             <NavLink exact className="nav-link" to="/learn">Learn</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink exact className="nav-link" to="/university">Univarsity</NavLink>
+                            <NavLink exact className="nav-link" to="/university">University</NavLink>
                         </li>
                     </ul>
                 </div>

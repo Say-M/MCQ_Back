@@ -45,7 +45,7 @@ const PracticeFrom = () => {
                     arr.push(d.data());
                 });
                 setUniversitys(arr);
-                updateQueSetInfo({ university: arr[0]?.shortName });
+                updateQueSetInfo({ university: arr[0]?.name });
             });
     }, []);
 
@@ -77,9 +77,9 @@ const PracticeFrom = () => {
     }
     //University input
     if (formValue.category === "Admission") {
-        isAdmission = true
+        isAdmission = true;
     } else {
-        isAdmission = false
+        isAdmission = false;
     }
     //Practice submit
     const handleSubmit = (e) => {
@@ -170,7 +170,7 @@ const PracticeFrom = () => {
     const uploadDataToFirestore = async () => {
         setSpin(true)
         const data = formValue;
-        data.question = optInput;
+        data.mcq = optInput;
         data.total = optInput.length;
 
         const document = db.collection("question").doc();
@@ -178,7 +178,6 @@ const PracticeFrom = () => {
         document
             .set(data)
             .then(() => {
-                // showAlert("Que Added Successfully", "success");
                 setQueIndex(0);
                 setAddQuestion(true);
                 setAlert(true);
