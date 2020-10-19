@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import db, { storage } from "./firebase_config";
+import db from "./firebase_config";
 
 const Learn = () => {
     const categroys = ["HSC", "Admission", "Olympain"]
@@ -37,7 +37,7 @@ const Learn = () => {
 
     return <>
         <div className="container table-item">
-            <Link exact className="btn btn-primary float-right" to="/add_que">Add</Link>
+            <Link exact className="btn btn-primary float-right" to="/quetions/add_que">Add</Link>
             <div className="form-row">
                 <div className="form-group col-sm-6 col-lg-3">
                     <select className="custom-select" value={categoryValue.category} name="category" onChange={handleChange}>
