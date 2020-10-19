@@ -14,7 +14,7 @@ const Learn = () => {
     useEffect(() => {
         let arr = [];
         const snap = db
-            .collection("Questions")
+            .collection("question")
             .where("category", "==", categoryValue.category)
             .get()
             .then((snap) => {

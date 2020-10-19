@@ -32,7 +32,7 @@ const University = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {university.map((versity, i) => <tr key={i}><td className="align-middle" style={{ width: "150px" }}><img style={{ width: "100%", objectFit: "cover" }} src={versity.image} alt={versity.shortName} /></td> <td className="align-middle">{versity.name} ({versity.shortName})</td> <td className="align-middle">{versity.type}</td></tr>)}
+                        {university.map((versity, i) => <tr key={i}><td className="align-middle" style={{ width: "150px" }}><img style={{ width: "100%", objectFit: "cover" }} src={versity.image} alt={versity.shortName} /></td><td className="align-middle">{versity.name} ({versity.shortName})</td><td className="align-middle">{versity.type}</td></tr>)}
                     </tbody>
                 </table>
             </div>

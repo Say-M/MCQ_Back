@@ -56,7 +56,7 @@ const PracticeFrom = () => {
     const [optInput, setOptInput] = useState([{
         question: "",
         options: ["", ""],
-        rightAns: "1",
+        rightAns: 1,
     }])
     //sup and sub script
     const [scripts, setScript] = useState({
@@ -65,7 +65,10 @@ const PracticeFrom = () => {
     })
     //input component onchange
     const handleChange = (evt) => {
-        const { name, value } = evt.target;
+        let { name, value } = evt.target;
+        if (name === "percent" || name === "duration") {
+            value = parseInt(value);
+        }
         setFormValue(prevValue => {
             return {
                 ...prevValue,
@@ -118,7 +121,7 @@ const PracticeFrom = () => {
         })
     }
     const handleSelChange = (e, key) => {
-        optInput[key].rightAns = e.target.value;
+        optInput[key].rightAns = parseInt(e.target.value);
         setOptInput(prevOpt => {
             return [...prevOpt]
         })
@@ -171,9 +174,8 @@ const PracticeFrom = () => {
         data.question = optInput;
         data.total = optInput.length;
 
-        const document = db.collection("Questions").doc();
+        const document = db.collection("question").doc();
         data.id = document.id;
-        data.duration = data.duration * 1000;
         document
             .set(data)
             .then(() => {
