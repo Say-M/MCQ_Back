@@ -248,8 +248,6 @@ const LearnForm = () => {
                         time: v.timeCondition
                     }).then((res) => {
                         videoDoc += 1;
-
-                        console.log(res);
                         processUpdate();
                     });
                 });

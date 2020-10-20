@@ -4,17 +4,49 @@ import Input from "./Input"
 import CustomSelect from "./CustomSelect"
 import Spinner from "./Spinner"
 import Alert from "./Alert";
+import { Redirect, useParams } from "react-router-dom";
 
 const PracticeFrom = () => {
+    const { id } = useParams()
+    const [questions, setQuestions] = useState([{ mcq: [] }])
     const [formValue, setFormValue] = useState({
         title: "",
-        category: "HSC",
+        category: "",
         university: "",
         percent: "",
         duration: "",
-        durationCondition: "Minutes",
-        total: 0,
+        durationCondition: "",
+        total: ""
     });
+    //Option
+    const [optInput, setOptInput] = useState([{
+        question: "",
+        options: ["", ""],
+        rightAnswer: "",
+    }])
+    useEffect(() => {
+        let arr = [];
+        const snap = db
+            .collection("question")
+            .where("id", "==", id)
+            .get()
+            .then((snap) => {
+                snap.forEach((d) => {
+                    arr.push(d.data());
+                });
+                setQuestions(arr);
+                setOptInput(arr[0].mcq)
+                setFormValue({
+                    title: arr[0].title,
+                    category: arr[0].category,
+                    university: arr[0].university,
+                    percent: arr[0].percent,
+                    duration: (arr[0].durationCondition === "Minutes" ? ((arr[0].duration / 60) / 1000) : (arr[0].duration / 1000)),
+                    durationCondition: arr[0].durationCondition,
+                    total: arr[0].total,
+                })
+            });
+    }, [id]);
     //Spinner
     const [isSpin, setSpin] = useState(false)
     //Alert
@@ -32,9 +64,6 @@ const PracticeFrom = () => {
     const categorys = ["HSC", "Admission", "Olympiad"];
     //University
     const [universitys, setUniversitys] = useState([]);
-    const updateQueSetInfo = (data) => {
-        setFormValue(Object.assign({}, formValue, data));
-    };
     useEffect(() => {
         let arr = [];
         const snap = db
@@ -45,18 +74,11 @@ const PracticeFrom = () => {
                     arr.push(d.data());
                 });
                 setUniversitys(arr);
-                updateQueSetInfo({ university: arr[0]?.name });
             });
     }, []);
 
     //Time
     const durationCondition = ["Minutes", "Seconds"];
-    //Option
-    const [optInput, setOptInput] = useState([{
-        question: "",
-        options: ["", ""],
-        rightAnswer: 1,
-    }])
     //sup and sub script
     const [scripts, setScript] = useState({
         isSup: false,
@@ -173,7 +195,7 @@ const PracticeFrom = () => {
         data.mcq = optInput;
         data.total = optInput.length;
 
-        const document = db.collection("question").doc();
+        const document = db.collection("question").doc(id);
         data.id = document.id;
         if (data.durationCondition === "Minutes") {
             data.duration = data.duration * 60 * 1000;
@@ -181,32 +203,18 @@ const PracticeFrom = () => {
             data.duration = data.duration * 1000;
         }
         document
-            .set(data)
+            .update(data)
             .then(() => {
                 setQueIndex(0);
                 setAddQuestion(true);
                 setAlert(true);
                 setAlertClass("alert alert-success");
-                setAlertText("Questions successfully added");
+                setAlertText("Questions successfully Edited");
                 setTimeout(() => {
                     setAlert(false);
                     setAlertClass("");
                     setAlertText("");
                 }, 3000)
-                setOptInput([{
-                    question: "",
-                    options: ["", ""],
-                    rightAnswer: "1"
-                }]);
-                setFormValue({
-                    title: "",
-                    category: "HSC",
-                    university: "",
-                    percent: "",
-                    duration: "",
-                    durationCondition: "Minutes",
-                    total: 0,
-                });
                 setSpin(false);
             })
             .catch(() => {
@@ -247,7 +255,7 @@ const PracticeFrom = () => {
                 </div>
                 <div className="form-group form-row">
                     <div className="col-sm-8">
-                        <Input placeholder="Duration" clName="form-control" type="number" name="duration" func={handleChange} val={formValue.duration} />
+                        <Input placeholder="Duration" clName="form-control" type="number" name="duration" func={handleChange} val={formValue.duration.toString()} />
                     </div>
                     <div className="col-sm-4">
                         <CustomSelect clName="custom-select" name="durationCondition" func={handleChange} val={formValue.durationCondition} options={durationCondition} />
