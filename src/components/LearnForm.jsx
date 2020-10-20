@@ -94,6 +94,7 @@ const LearnForm = () => {
         formValue.university = university[0].name
     } else {
         isAdmission = false
+        formValue.university = ""
     }
     const fileUpload = () => {
         setLearn(false);
@@ -163,6 +164,14 @@ const LearnForm = () => {
                     setLearn(true);
                     setFileIndex(0);
                     setSpin(false);
+                    setAlert(true);
+                    setAlertClass("alert alert-success")
+                    setAlertText("File successfully uploaded")
+                    setTimeout(() => {
+                        setAlert(false);
+                        setAlertClass("")
+                        setAlertText("")
+                    }, 3000)
                 }
             },
             function (error) {

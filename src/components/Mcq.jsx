@@ -37,7 +37,7 @@ const Mcq = () => {
                 {console.log(questions[0])}
                 {questions[0].mcq.map((que, i) => {
                     return <div key={i} className="my-3 col-md-6">
-                        <strong><p>{que.question}</p></strong>
+                        <strong><p>{i + 1}: {que.question}</p></strong>
                         <div className="row">
                             {que.options.map((opt, i) => {
                                 return <div key={i} className="col-sm-6 mb-2"><strong>{i + 1}:</strong> {opt}</div>
