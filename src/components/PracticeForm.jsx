@@ -23,7 +23,7 @@ const PracticeFrom = () => {
     const [alertText, setAlertText] = useState("")
 
     const [addQuestion, setAddQuestion] = useState(true);
-    const [viewState, setViewState] = useState("que_info"); // que_info each_que
+
     //Question Index
     const [queIndex, setQueIndex] = useState(0)
     //Render conditional components
@@ -55,7 +55,7 @@ const PracticeFrom = () => {
     const [optInput, setOptInput] = useState([{
         question: "",
         options: ["", ""],
-        rightAns: 1,
+        rightAnswer: 1,
     }])
     //sup and sub script
     const [scripts, setScript] = useState({
@@ -120,7 +120,7 @@ const PracticeFrom = () => {
         })
     }
     const handleSelChange = (e, key) => {
-        optInput[key].rightAns = parseInt(e.target.value);
+        optInput[key].rightAnswer = parseInt(e.target.value);
         setOptInput(prevOpt => {
             return [...prevOpt]
         })
@@ -140,7 +140,7 @@ const PracticeFrom = () => {
                 return [...prevOpt, {
                     question: "",
                     options: ["", ""],
-                    rightAns: "1"
+                    rightAnswer: "1"
                 }]
             })
         }
@@ -191,7 +191,7 @@ const PracticeFrom = () => {
                 setOptInput([{
                     question: "",
                     options: ["", ""],
-                    rightAns: "1"
+                    rightAnswer: "1"
                 }]);
                 setFormValue({
                     title: "",
@@ -202,8 +202,6 @@ const PracticeFrom = () => {
                     durationCondition: "Minutes",
                     total: 0,
                 });
-
-                setViewState("que_info");
                 setSpin(false);
             })
             .catch(() => {

@@ -11,6 +11,10 @@ const LearnForm = () => {
     const [alertText, setAlertText] = useState("")
     //Spinner
     const [Spin, setSpin] = useState(false);
+    //Chapter
+    const [chapter, setChapter] = useState([]);
+    //University
+    const [university, setUniversity] = useState([]);
 
     const [formValue, setFormValue] = useState({
         chapter: "",
@@ -19,29 +23,18 @@ const LearnForm = () => {
     });
     let isAdmission = false;
     const [learn, setLearn] = useState(true);
-    //Chapter
-    const [chapter, setChapter] = useState([]);
 
     const updateInfoForm = (data) => {
         setFormValue(Object.assign({}, formValue, data));
+        setFormValue(prevValue => {
+            return {
+                ...prevValue,
+                chapter: data.chapter
+            }
+        })
     };
-    useEffect(() => {
-        let arr = [];
-        const snapshot = db
-            .collection("chapter")
-            .get()
-            .then((snapshot) => {
-                snapshot.forEach((doc) => {
-                    arr.push(doc.data()?.title);
-                });
-                setChapter(arr);
-                updateInfoForm({ chapter: arr[0] });
-            });
-    }, []);
     //category
     const category = ["HSC", "Admission", "Olympiad"];
-    //University
-    const [university, setUniversity] = useState([]);
     useEffect(() => {
         let arr = [];
         const snap = db
@@ -53,6 +46,20 @@ const LearnForm = () => {
                 });
                 setUniversity(arr);
                 updateInfoForm({ university: arr[0]?.shortName });
+            });
+    }, []);
+
+    useEffect(() => {
+        let arr = [];
+        const snapshot = db
+            .collection("chapter")
+            .get()
+            .then((snapshot) => {
+                snapshot.forEach((doc) => {
+                    arr.push(doc.data()?.title);
+                });
+                setChapter(arr);
+                updateInfoForm({ chapter: arr[0] });
             });
     }, []);
 
@@ -82,9 +89,9 @@ const LearnForm = () => {
         })
     }
 
-
     if (formValue.category === "Admission") {
         isAdmission = true
+        formValue.university = university[0].name
     } else {
         isAdmission = false
     }
@@ -190,34 +197,32 @@ const LearnForm = () => {
         const processUpdate = () => {
             progress += 1;
             updateProgressBar({ percent: (progress * 100) / total, show: true });
-            if (progress >= total) {
-                document
-                    .update({
-                        video: videoDoc,
-                        pdf: pdfDoc,
-                        que: queDoc,
-                    })
-                    .then(() => {
-                        setFormValue({
-                            chapter: "",
-                            category: "HSC",
-                            university: "",
-                        });
-                        setFileInput([{
-                            title: "",
-                            type: "PDF",
-                            file: "",
-                            url: "",
-                            size: "",
-                            timeCondition: "Minuites",
-                            isVideo: false,
-                        }]);
-                        updateProgressBar({ show: false, percent: 0 });
-                        setLearn(true);
-                        setFileIndex(0)
-                        setSpin(false)
+            document
+                .update({
+                    video: videoDoc,
+                    pdf: pdfDoc,
+                    que: queDoc,
+                })
+                .then(() => {
+                    setFormValue({
+                        chapter: "",
+                        category: "HSC",
+                        university: "",
                     });
-            }
+                    setFileInput([{
+                        title: "",
+                        type: "PDF",
+                        file: "",
+                        url: "",
+                        size: "",
+                        timeCondition: "Minuites",
+                        isVideo: false,
+                    }]);
+                    updateProgressBar({ show: false, percent: 0 });
+                    setLearn(true);
+                    setFileIndex(0)
+                    setSpin(false)
+                });
         };
 
         document
@@ -275,6 +280,8 @@ const LearnForm = () => {
         let { name, value } = e.target;
         if (name === "file") {
             value = e.target.files[0];
+        } else if (name === "size") {
+            value = parseInt(value)
         }
         fileInput[key] = { ...fileInput[key], [name]: value }
         setFileInput(prevInput => {
@@ -363,7 +370,7 @@ const LearnForm = () => {
                     }
 
                     <div className="form-group">
-                        {formValue.category!=="Admission"? <div className="float-left"><button type="button" className="btn btn-outline-dark mr-3" onClick={prevFile}>Prev</button><button type="button" className="btn btn-outline-dark" onClick={addFile}>Next</button></div> :null}
+                        {formValue.category !== "Admission" ? <div className="float-left"><button type="button" className="btn btn-outline-dark mr-3" onClick={prevFile}>Prev</button><button type="button" className="btn btn-outline-dark" onClick={addFile}>Next</button></div> : null}
                         <div className="float-right"><button className="btn btn-outline-primary" type="submit">Submit</button></div>
                     </div>
                 </form>

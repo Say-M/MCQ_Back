@@ -6,6 +6,7 @@ import PracticeForm from './PracticeForm';
 import UniversityForm from './UniversityForm';
 import LearnForm from './LearnForm';
 import University from './University';
+import Mcq from './Mcq';
 
 function App() {
   return <>
@@ -16,6 +17,7 @@ function App() {
       <Route exact path="/learn" component={LearnForm} />
       <Route exact path="/university" component={University} />
       <Route exact path="/university/add_university" component={UniversityForm} />
+      <Route exact path="/mcq/:id" component={Mcq} />
       <Redirect to={"/quetions"} />
     </Switch>
   </>
