@@ -34,7 +34,7 @@ const Mcq = () => {
                     </div>
                     <div className="col-6 text-right">
                         <p><strong>Category:</strong> {questions[0].category}</p>
-                        <p><strong>Marks:</strong> {questions[0].percent}</p>
+                        <p><strong>Marks:</strong> {questions[0].pass}</p>
                     </div>
                 </div>
                 <div className="row border">

@@ -35,10 +35,10 @@ body {
 }
 
 .form {
-  width: 50%;
+  width: 60%;
   margin: auto;
   background: #f5f8fa;
-  padding: 1rem;
+  padding: 1rem 2rem;
   height: calc(100vh - 56px);
   overflow: auto;
 }

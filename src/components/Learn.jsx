@@ -72,7 +72,7 @@ const Learn = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {questions.map((question, i) => <tr key={i}><td>{question.title}</td><td>{question.category}</td>{categoryValue.category === "Admission" ? <td>{question.university}</td> : null}<td>{question.percent}</td><td>{question.total}</td><td><NavLink className="btn-outline-primary btn btn-sm" to={"mcq/" + question.id}>Show</NavLink><NavLink className="ml-2 btn-outline-primary btn btn-sm" to={"edit_mcq/" + question.id}>Edit</NavLink></td></tr>)}
+                            {questions.map((question, i) => <tr key={i}><td>{question.title}</td><td>{question.category}</td>{categoryValue.category === "Admission" ? <td>{question.university}</td> : null}<td>{question.pass}</td><td>{question.total}</td><td><NavLink className="btn-outline-primary btn btn-sm" to={"mcq/" + question.id}>Show</NavLink><NavLink className="ml-2 btn-outline-primary btn btn-sm" to={"edit_mcq/" + question.id}>Edit</NavLink></td></tr>)}
                         </tbody>
                     </table>
                 </div></>}

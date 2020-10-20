@@ -10,7 +10,7 @@ const PracticeFrom = () => {
         title: "",
         category: "HSC",
         university: "",
-        percent: "",
+        pass: "",
         duration: "",
         durationCondition: "Minutes",
         total: 0,
@@ -65,7 +65,7 @@ const PracticeFrom = () => {
     //input component onchange
     const handleChange = (evt) => {
         let { name, value } = evt.target;
-        if (name === "percent" || name === "duration") {
+        if (name === "pass" || name === "duration") {
             value = parseInt(value);
         }
         setFormValue(prevValue => {
@@ -84,8 +84,8 @@ const PracticeFrom = () => {
     //Practice submit
     const handleSubmit = (e) => {
         e.preventDefault();
-        const { title, category, percent, duration } = formValue;
-        if (title !== "" && category !== "" && percent > 0 && duration > 1) {
+        const { title, category, pass, duration } = formValue;
+        if (title !== "" && category !== "" && pass > 0 && duration > 1) {
             setAddQuestion(false)
         } else {
             setAlert(true);
@@ -202,7 +202,7 @@ const PracticeFrom = () => {
                     title: "",
                     category: "HSC",
                     university: "",
-                    percent: "",
+                    pass: "",
                     duration: "",
                     durationCondition: "Minutes",
                     total: 0,
@@ -243,7 +243,7 @@ const PracticeFrom = () => {
                     </div>
                     : null}
                 <div className="form-group">
-                    <Input placeholder="Percent" clName="form-control" type="number" name="percent" func={handleChange} val={formValue.percent} />
+                    <Input placeholder="pass" clName="form-control" type="number" name="pass" func={handleChange} val={formValue.pass} />
                 </div>
                 <div className="form-group form-row">
                     <div className="col-sm-8">
