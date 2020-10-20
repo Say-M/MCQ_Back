@@ -29,7 +29,7 @@ const Mcq = () => {
                     <p><strong>Duration:</strong> {questions[0].duration} {questions[0].durationCondition}</p>
                 </div>
                 <div className="col-6 text-right">
-                    <p><strong>Duration:</strong> {questions[0].category}</p>
+                    <p><strong>Category:</strong> {questions[0].category}</p>
                     <p><strong>Marks:</strong> {questions[0].percent}</p>
                 </div>
             </div>
