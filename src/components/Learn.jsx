@@ -17,7 +17,7 @@ const Learn = () => {
     const [isAlert, setAlert] = useState(false);
     const [alertClass, setAlertClass] = useState("");
     const [alertText, setAlertText] = useState("")
-
+    document.title = "ChemGenie | All questions"
     useEffect(() => {
         let arr = [];
         const snap = db
@@ -30,7 +30,7 @@ const Learn = () => {
                 });
                 setQuestions(arr);
             });
-    }, []);
+    }, [categoryValue.category]);
     useEffect(() => {
         let arr = [];
         const snap = db
@@ -53,6 +53,7 @@ const Learn = () => {
         })
     }
     const getId = (e) => {
+        e.preventDefault()
         setId(e.target.id);
     }
     const clDelete = () => {
@@ -129,7 +130,7 @@ const Learn = () => {
                                 <td>{question.pass}</td>
                                 <td><NavLink className="btn-primary d-inline-block btn btn-sm" to={"mcq/" + question.id}><i className="fas fa-eye"></i></NavLink>
                                     <NavLink className="ml-2 d-inline-block btn-info btn btn-sm" to={"edit_mcq/" + question.id}><i className="fas fa-edit"></i></NavLink>
-                                    <NavLink className="ml-2 d-inline-block btn btn-danger btn-sm" id={question.id} data-toggle="modal" data-target="#delete" onClick={getId} to="javascript:void(0)"><i id={question.id} className="fas fa-trash"></i></NavLink></td></tr>)}
+                                    <NavLink className="ml-2 d-inline-block btn btn-danger btn-sm" id={question.id} data-toggle="modal" data-target="#delete" onClick={getId} to="#"><i id={question.id} className="fas fa-trash"></i></NavLink></td></tr>)}
                         </tbody>
                     </table>
                 </div></>}

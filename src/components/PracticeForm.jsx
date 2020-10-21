@@ -18,6 +18,8 @@ const PracticeFrom = () => {
         sec: "00",
         total: 0,
     });
+
+    document.title = "ChemGenie | Add a new question"
     //Spinner
     const [isSpin, setSpin] = useState(false)
     //Alert

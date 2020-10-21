@@ -9,6 +9,7 @@ const LearnForm = () => {
     const [isAlert, setAlert] = useState(false);
     const [alertClass, setAlertClass] = useState("");
     const [alertText, setAlertText] = useState("")
+    document.title = "ChemGenie | Add files or videos"
     //Spinner
     const [Spin, setSpin] = useState(false);
     //Chapter

@@ -10,6 +10,7 @@ const UniversityForm = () => {
     const [isAlert, setAlert] = useState(false);
     const [alertClass, setAlertClass] = useState("");
     const [alertText, setAlertText] = useState("")
+    document.title = "ChemGenie | Add a new university"
     //Spinner
     const [Spin, setSpin] = useState(false);
 

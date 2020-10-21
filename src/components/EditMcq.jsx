@@ -27,6 +27,7 @@ const PracticeFrom = () => {
         options: ["", ""],
         rightAnswer: "",
     }])
+    document.title = "ChemGenie | " + formValue.title
     useEffect(() => {
         let arr = [];
         const snap = db

@@ -4,6 +4,7 @@ import db from "./firebase_config";
 
 const University = () => {
     const [university, setUniversity] = useState([])
+    document.title = "ChemGenie | All universitys"
 
     useEffect(() => {
         let arr = [];
