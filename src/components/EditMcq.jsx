@@ -263,97 +263,101 @@ const PracticeFrom = () => {
         {addQuestion ?
             <form className="form" onSubmit={handleSubmit}>
                 <h3 className="text-center">Update Question Set</h3>
-                <div className="form-group row">
+                <div className="form-group row justify-content-md-center">
                     <label className="col-sm-2 col-form-label">Title</label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-10 col-md-6">
                         <Input placeholder="Title" clName="form-control" type="text" name="title" func={handleChange} val={formValue.title} />
                     </div>
                 </div>
-                <div className="form-group row">
+                <div className="form-group row justify-content-md-center">
                     <label className="col-sm-2 col-form-label">Category</label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-10 col-md-6">
                         <CustomSelect clName="custom-select" func={handleChange} name="category" val={formValue.category} options={categorys} />
                     </div>
                 </div>
                 {isAdmission ?
-                    <div className="form-group row">
+                    <div className="form-group row justify-content-md-center">
                         <label className="col-sm-2 col-form-label">University</label>
-                        <div className="col-sm-10">
+                        <div className="col-sm-10 col-md-6">
                             <select className="custom-select" onChange={handleChange} name="university" val={formValue.university}  >
                                 {universitys.map((versity, i) => <option key={i} value={versity.name}>{versity.name}</option>)}
                             </select>
                         </div>
                     </div>
                     : null}
-                <div className="form-group row">
+                <div className="form-group row justify-content-md-center">
                     <label className="col-sm-2 col-form-label">Mark Per Question</label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-10 col-md-6">
                         <Input placeholder="Total Marks" clName="form-control" type="number" name="totalMark" func={handleChange} val={formValue.totalMark} />
                     </div>
                 </div>
-                <div className="form-group row">
+                <div className="form-group row justify-content-md-center">
                     <label className="col-sm-2 col-form-label">Pass (%)</label>
-                    <div className="col-sm-10">
+                    <div className="col-sm-10 col-md-6">
                         <Input placeholder="Pass" clName="form-control" type="number" name="pass" func={handleChange} val={formValue.pass} />
                     </div>
                 </div>
-                <div className="form-group row">
+                <div className="form-group row justify-content-md-center">
                     <label className="col-sm-2 col-form-label">Duration</label>
-                    <div className="col-2">
+                    <div className="col-sm-2 col-md-1">
                         <Input placeholder="Hours" clName="form-control" type="number" name="hour" func={handleChange} val={formValue.hour} />
                     </div>
-                    <label className="col-1 pl-0 col-form-label">Hours</label>
-                    <div className="col-2">
-                        <Input placeholder="Min" clName="form-control" type="number" name="min" func={handleChange} val={formValue.min} />
+                    <label className="col-sm-1 pl-sm-0 col-form-label">Hours</label>
+                    <div className="col-sm-2 col-md-1">
+                        <Input placeholder="Minutes" clName="form-control" type="number" name="min" func={handleChange} val={formValue.min} />
                     </div>
-                    <label className="col-1 pl-0 col-form-label">Minutes</label>
-                    <div className="col-2">
-                        <Input placeholder="Sec" clName="form-control" type="number" name="sec" func={handleChange} val={formValue.sec} />
+                    <label className="col-sm-1 pl-sm-0 col-form-label">Minutes</label>
+                    <div className="col-sm-2 col-md-1">
+                        <Input placeholder="Seconds" clName="form-control" type="number" name="sec" func={handleChange} val={formValue.sec} />
                     </div>
-                    <label className="col-2 pl-0 col-form-label">Seconds</label>
+                    <label className="col-sm-2 col-md-1 pl-sm-0 col-form-label">Seconds</label>
                 </div>
-                <div className="text-right form-group">
+                <div className="text-right form-group row justify-content-end col-md-10 pr-0">
                     <button type="submit" className="btn btn-outline-primary">Next</button>
                 </div>
             </form> :
             <>
                 {optInput.map((opts, ind) => {
                     return <form key={ind} className="form" onSubmit={handleOptSubmit} style={queIndex !== ind ? { display: "none" } : { display: "inherit" }}>
-                        <h3 className="text-center">Question no : {queIndex + 1} and total : {optInput.length}</h3>
-                        <div className="scripts">
-                            <div className={scripts.isSup ? 'active' : null} onClick={supScript}><i className="fas fa-superscript"></i></div>
-                            <div className={scripts.isSub ? 'active' : null} onClick={subScript}><i className="fas fa-subscript"></i></div>
-                        </div>
-                        <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">Title</label>
-                            <div className="col-sm-10">
-                                <textarea placeholder="Question Title" name="quesTitle" className="form-control" onChange={evt => questionChange(evt, ind)} value={opts.question}></textarea>
+                        <div className="container">
+                            <h3 className="text-center">Question no : {queIndex + 1} and total : {optInput.length}</h3>
+                            <div className="scripts row pr-0 col-md-10">
+                                <div className={scripts.isSup ? 'active' : null} onClick={supScript}><i className="fas fa-superscript"></i></div>
+                                <div className={scripts.isSub ? 'active' : null} onClick={subScript}><i className="fas fa-subscript"></i></div>
                             </div>
-                        </div>
-                        {opts.options.map((input, i) => {
-                            return <div key={i} className="form-group row">
-                                <label className="col-sm-2 col-form-label">Option {i + 1}</label>
-                                <div className="col-sm-10">
-                                    <input placeholder={"Option " + (i + 1)} className="form-control" type="text" value={opts.options[i]} onChange={evt => handleOptChange(evt, i, ind)} />
+                            <div className="form-group row justify-content-md-center">
+                                <label className="col-sm-2 col-form-label">Title</label>
+                                <div className="col-sm-10  col-md-6 col-md-6">
+                                    <textarea placeholder="Question Title" name="quesTitle" className="form-control" onChange={evt => questionChange(evt, ind)} value={opts.question}></textarea>
                                 </div>
                             </div>
-                        })}
-                        <div className="form-group text-center">
-                            <button className="btn btn-outline-primary" type="button" onClick={evt => addOpt(evt, ind)}>Add New Option</button>
-                        </div>
-                        <div className="form-group row">
-                            <label className="col-sm-2 col-form-label">Answer</label>
-                            <div className="col-sm-10">
-                                <select className="custom-select" value={opts.rightAnswer} onChange={evt => handleSelChange(evt, ind)}>
-                                    {opts.options.map((input, i) => {
-                                        return <option key={i} value={i + 1}>{i + 1}</option>
-                                    })}
-                                </select>
+                            {opts.options.map((input, i) => {
+                                return <div key={i} className="form-group row justify-content-md-center">
+                                    <label className="col-sm-2 col-form-label">Option {i + 1}</label>
+                                    <div className="col-sm-10  col-md-6">
+                                        <input placeholder={"Option " + (i + 1)} className="form-control" type="text" value={opts.options[i]} onChange={evt => handleOptChange(evt, i, ind)} />
+                                    </div>
+                                </div>
+                            })}
+                            <div className="form-group text-center">
+                                <button className="btn btn-outline-primary" type="button" onClick={evt => addOpt(evt, ind)}>Add New Option</button>
                             </div>
-                        </div>
-                        <div className="form-group border-top pt-4 mt-4">
-                            <div className="float-left">{queIndex > 0 ? <button className="btn btn-outline-dark mr-3" type="button" onClick={prevQues}>Prev</button> : null}<button className="btn btn-outline-dark" type="button" onClick={addQues}>Next</button></div>
-                            <div className="float-right"><button className="btn btn-outline-primary" type="submit">Update</button></div>
+                            <div className="form-group row justify-content-md-center">
+                                <label className="col-sm-2 col-form-label">Answer</label>
+                                <div className="col-sm-10 col-md-6">
+                                    <select className="custom-select" value={opts.rightAnswer} onChange={evt => handleSelChange(evt, ind)}>
+                                        {opts.options.map((input, i) => {
+                                            return <option key={i} value={i + 1}>{i + 1}</option>
+                                        })}
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="form-group row justify-content-md-center">
+                                <div className="col-md-8">
+                                    <div className="float-left">{queIndex > 0 ? <button className="btn btn-outline-dark mr-3" type="button" onClick={prevQues}>Prev</button> : null}<button className="btn btn-outline-dark" type="button" onClick={addQues}>Next</button></div>
+                                    <div className="float-right"><button className="btn btn-outline-primary" type="submit">Submit</button></div>
+                                </div>
+                            </div>
                         </div>
                     </form>
                 })}

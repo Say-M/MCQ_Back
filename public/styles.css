@@ -35,7 +35,6 @@ body {
 }
 
 .form {
-  width: 90%;
   margin: auto;
   background: #f5f8fa;
   padding: 1rem 2rem;
@@ -73,14 +72,7 @@ body {
 
 @media screen and (max-width: 767.98px) {
   .form {
-    width: 95%;
     height: unset;
-  }
-}
-
-@media screen and (max-width: 575.98px) {
-  .form {
-    width: 100%;
   }
 }
 
@@ -119,14 +111,14 @@ body {
 }
 
 /* Chrome, Safari, Edge, Opera */
-input[type=number]::-webkit-outer-spin-button,
-input[type=number]::-webkit-inner-spin-button {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 /*# sourceMappingURL=styles.css.map */
