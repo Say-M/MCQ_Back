@@ -30,7 +30,7 @@ const Mcq = () => {
                 <div className="row">
                     <div className="col-6">
                         <p><strong>Total questions:</strong> {questions[0].total}</p>
-                        <p><strong>Duration:</strong> {questions[0].durationCondition === "Minutes" ? ((questions[0].duration / 60) / 1000).toFixed(2) : (questions[0].duration / 1000).toFixed(2)} {questions[0].durationCondition}</p>
+                        <p><strong>Duration:</strong> {`${questions[0].hour}:${questions[0].min}:${questions[0].sec}`}</p>
                     </div>
                     <div className="col-6 text-right">
                         <p><strong>Category:</strong> {questions[0].category}</p>

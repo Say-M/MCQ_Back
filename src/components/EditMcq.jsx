@@ -286,9 +286,9 @@ const PracticeFrom = () => {
                     </div>
                     : null}
                 <div className="form-group row">
-                    <label className="col-sm-2 col-form-label">Total</label>
+                    <label className="col-sm-2 col-form-label">Mark Per Question</label>
                     <div className="col-sm-10">
-                        <Input placeholder="Total" clName="form-control" type="number" name="totalMark" func={handleChange} val={formValue.totalMark} />
+                        <Input placeholder="Total Marks" clName="form-control" type="number" name="totalMark" func={handleChange} val={formValue.totalMark} />
                     </div>
                 </div>
                 <div className="form-group row">

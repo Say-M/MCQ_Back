@@ -65,14 +65,15 @@ const Learn = () => {
                             <tr>
                                 <th scope="col" style={{ width: "400px" }}>Title</th>
                                 <th scope="col">Categroy</th>
+                                <th scope="col">Total Question</th>
+                                <th scope="col">Total Marks</th>
                                 {categoryValue.category === "Admission" ? <th scope="col">University</th> : null}
-                                <th scope="col">Pass (Percent)</th>
-                                <th scope="col">Question</th>
+                                <th scope="col">Pass (%)</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {questions.map((question, i) => <tr key={i}><td>{question.title}</td><td>{question.category}</td>{categoryValue.category === "Admission" ? <td>{question.university}</td> : null}<td>{question.pass}</td><td>{question.total}</td><td><NavLink className="btn-outline-primary btn btn-sm" to={"mcq/" + question.id}>Show</NavLink><NavLink className="ml-2 btn-outline-primary btn btn-sm" to={"edit_mcq/" + question.id}>Edit</NavLink></td></tr>)}
+                            {questions.map((question, i) => <tr key={i}><td>{question.title}</td><td>{question.category}</td><td>{question.total}</td><td>{question.totalMark}</td>{categoryValue.category === "Admission" ? <td>{question.university}</td> : null}<td>{question.pass}</td><td><NavLink className="btn-outline-primary btn btn-sm" to={"mcq/" + question.id}>Show</NavLink><NavLink className="ml-2 btn-outline-primary btn btn-sm" to={"edit_mcq/" + question.id}>Edit</NavLink></td></tr>)}
                         </tbody>
                     </table>
                 </div></>}
