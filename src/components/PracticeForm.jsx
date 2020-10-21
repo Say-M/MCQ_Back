@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import db from "./firebase_config";
-import { escape } from 'html-escaper';
 import Input from "./Input"
 import CustomSelect from "./CustomSelect"
 import Spinner from "./Spinner"
@@ -308,7 +307,7 @@ const PracticeFrom = () => {
                         <label className="col-sm-2 col-md-1 pl-sm-0 col-form-label">Sec</label>
                     </div>
                     <div className="text-center form-group mt-5">
-                        <button type="submit" className="btn btn-lg btn-outline-primary">Next</button>
+                        <button type="submit" className="btn px-5 btn-outline-primary">Next</button>
                     </div>
                 </div>
             </form> :
@@ -350,9 +349,12 @@ const PracticeFrom = () => {
                             </div>
                             <div className="form-group row justify-content-md-center">
                                 <div className="col-md-8">
-                                    <div className="float-left">{queIndex > 0 ? <button className="btn btn-outline-dark mr-3" type="button" onClick={prevQues}>Prev</button> : null}<button className="btn btn-outline-dark" type="button" onClick={addQues}>Next</button></div>
-                                    <div className="float-right"><button className="btn btn-outline-primary" type="submit">Submit</button></div>
+                                    <div className="float-left"><button className="btn btn-outline-dark mr-3" type="button" onClick={prevQues}>Prev</button></div>
+                                    <div className="float-right"><button className="btn btn-outline-dark" type="button" onClick={addQues}>Next</button></div>
                                 </div>
+                            </div>
+                            <div className="form-group mt-5 text-center">
+                                <button className="btn btn-outline-primary" type="submit">Submit</button>
                             </div>
                         </div>
                     </form>

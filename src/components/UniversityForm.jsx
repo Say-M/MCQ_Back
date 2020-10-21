@@ -15,7 +15,7 @@ const UniversityForm = () => {
     const [Spin, setSpin] = useState(false);
 
     const [formValue, setFormValue] = useState({
-        varsityName: "",
+        name: "",
         shortName: "",
         type: "Engenieer University",
         file: {},
@@ -75,7 +75,7 @@ const UniversityForm = () => {
         e.preventDefault();
         const data = formValue;
         if (
-            data.varsityName.length &&
+            data.name.length &&
             data.shortName.length &&
             data.type.length &&
             data.file
@@ -89,7 +89,7 @@ const UniversityForm = () => {
                         .then(() => {
                             // showAlert("University Addition Successful", "success");
                             setFormValue({
-                                varsityName: "",
+                                name: "",
                                 shortName: "",
                                 type: "",
                                 file: "",
@@ -123,7 +123,7 @@ const UniversityForm = () => {
                 <div className="form-group row justify-content-md-center">
                     <label className="col-sm-2 col-form-label">University Name</label>
                     <div className="col-sm-10 col-md-6">
-                        <Input placeholder="Name" clName="form-control" type="text" name="varsityName" func={handleChange} val={formValue.varsityName} />
+                        <Input placeholder="Name" clName="form-control" type="text" name="name" func={handleChange} val={formValue.name} />
                     </div>
                 </div>
                 <div className="form-group row justify-content-md-center">
@@ -142,13 +142,13 @@ const UniversityForm = () => {
                     <label className="col-sm-2 col-form-label">University Image</label>
                     <div className="col-sm-10 col-md-6">
                         <div className="custom-file">
-                            <Input clName="custom-file-input" id="customFile" type="file" name="file" func={handleChange} val="" />
+                            <input className="custom-file-input" accept="image/*" id="customFile" type="file" name="file" onChange={handleChange} value="" />
                             <label className="custom-file-label" htmlFor="customFile">Choose file</label>
                         </div>
                     </div>
                 </div>
                 <div className="text-center form-group mt-5">
-                    <button type="submit" className="btn-lg btn btn-outline-primary">Submit</button>
+                    <button type="submit" className="px-5 btn btn-outline-primary">Submit</button>
                 </div>
             </div>
         </form>

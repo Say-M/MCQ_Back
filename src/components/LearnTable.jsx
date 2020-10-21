@@ -4,9 +4,9 @@ import db from "./firebase_config";
 import Spinner from "./Spinner";
 import Alert from "./Alert";
 
-const Learn = () => {
+const LearnTable = () => {
     const [isSpin, setSpin] = useState(true)
-    const [questions, setQuestions] = useState([])
+    const [learn, setLearn] = useState([])
     const categroys = ["HSC", "Admission", "Olympaid"]
     const [categoryValue, setCategoryValue] = useState({
         category: "HSC",
@@ -21,14 +21,14 @@ const Learn = () => {
     useEffect(() => {
         let arr = [];
         const snap = db
-            .collection("question")
+            .collection("learn")
             .where("category", "==", categoryValue.category)
             .get()
             .then((snap) => {
                 snap.forEach((d) => {
                     arr.push(d.data());
                 });
-                setQuestions(arr);
+                setLearn(arr);
             });
     }, [categoryValue.category]);
     useEffect(() => {
@@ -59,7 +59,7 @@ const Learn = () => {
     const clDelete = () => {
         setSpin(true);
         const snap = db
-            .collection("question")
+            .collection("learn")
             .doc(id)
             .delete()
             .then(() => {
@@ -74,14 +74,14 @@ const Learn = () => {
                 }, 3000)
                 let arr = [];
                 const snap = db
-                    .collection("question")
+                    .collection("learn")
                     .where("category", "==", categoryValue.category)
                     .get()
                     .then((snap) => {
                         snap.forEach((d) => {
                             arr.push(d.data());
                         });
-                        setQuestions(arr);
+                        setLearn(arr);
                     });
             })
             .catch((err) => {
@@ -102,7 +102,7 @@ const Learn = () => {
             {isAlert ?
                 <Alert alClass={alertClass} text={alertText} /> : null}
             {isSpin ? null : <>
-                <NavLink exact className="btn btn-primary float-right" to="/quetions/add_que">Add</NavLink>
+                <NavLink exact className="btn btn-primary float-right" to="/add_learn">Add</NavLink>
                 <div className="form-row">
                     <div className="form-group col-sm-6 col-lg-3">
                         <select className="custom-select" value={categoryValue.category} name="category" onChange={handleChange}>
@@ -114,23 +114,25 @@ const Learn = () => {
                     <table className="table text-center table-hover table-bordered">
                         <thead className="thead-light">
                             <tr>
-                                <th scope="col" style={{ width: "400px" }}>Title</th>
+                                <th scope="col">Chapter</th>
                                 <th scope="col">Categroy</th>
-                                <th scope="col">Total Question</th>
-                                <th scope="col">Total Marks</th>
                                 {categoryValue.category === "Admission" ? <th scope="col">University</th> : null}
-                                <th scope="col">Pass (%)</th>
+                                <th scope="col">PDF</th>
+                                <th scope="col">Video</th>
+                                <th scope="col">Question</th>
                                 <th scope="col">Action</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {questions.map((question, i) => <tr key={i}><td>{question.title}</td>
-                                <td>{question.category}</td><td>{question.total}</td>
-                                <td>{question.totalMark}</td>{categoryValue.category === "Admission" ? <td>{question.university}</td> : null}
-                                <td>{question.pass}</td>
-                                <td><NavLink className="btn-primary d-inline-block btn btn-sm" to={"mcq/" + question.id}><i className="fas fa-eye"></i></NavLink>
-                                    <NavLink className="ml-2 d-inline-block btn-info btn btn-sm" to={"edit_mcq/" + question.id}><i className="fas fa-edit"></i></NavLink>
-                                    <NavLink className="ml-2 d-inline-block btn btn-danger btn-sm" id={question.id} data-toggle="modal" data-target="#delete" onClick={getId} to="#"><i id={question.id} className="fas fa-trash"></i></NavLink></td></tr>)}
+                            {learn.map((lrn, i) => <tr key={i}><td>{lrn.chapter}</td>
+                                <td>{lrn.category}</td>
+                                {categoryValue.category === "Admission" ? <td>{lrn.university}</td> : null}
+                                <td>{lrn.pdf}</td>
+                                <td>{lrn.video}</td>
+                                <td>{lrn.que}</td>
+                                <td><NavLink className="btn-primary d-inline-block btn btn-sm" to={"mcq/" + lrn.id}><i className="fas fa-eye"></i></NavLink>
+                                    <NavLink className="ml-2 d-inline-block btn-info btn btn-sm" to={"edit_mcq/" + lrn.id}><i className="fas fa-edit"></i></NavLink>
+                                    <NavLink className="ml-2 d-inline-block btn btn-danger btn-sm" id={lrn.id} data-toggle="modal" data-target="#delete" onClick={getId} to="#"><i id={lrn.id} className="fas fa-trash"></i></NavLink></td></tr>)}
                         </tbody>
                     </table>
                 </div></>}
@@ -157,4 +159,4 @@ const Learn = () => {
     </>
 }
 
-export default Learn; 
+export default LearnTable; 

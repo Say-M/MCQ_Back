@@ -322,89 +322,96 @@ const LearnForm = () => {
         {isAlert ?
             <Alert alClass={alertClass} text={alertText} /> : null}
         {learn ? <form className="form" onSubmit={handleNext}>
-            <h3 className="text-center">File / Video Upload</h3>
-            <div className="form-group row justify-content-md-center">
-                <label className="col-sm-2 col-form-label">Chapter</label>
-                <div className="col-sm-10 col-md-6 col-md-6">
-                    <CustomSelect clName="custom-select" name="chapter" func={handleChange} val={formValue.chapter} options={chapter} />
-                </div>
-            </div>
-            <div className="form-group row justify-content-md-center">
-                <label className="col-sm-2 col-form-label">Category</label>
-                <div className="col-sm-10 col-md-6 col-md-6">
-                    <CustomSelect clName="custom-select" func={handleChange} name="category" val={formValue.category} options={category} />
-                </div>
-            </div>
-            {isAdmission ?
+            <div className="container">
+                <h3 className="text-center">File / Video Upload</h3>
                 <div className="form-group row justify-content-md-center">
-                    <label className="col-sm-2 col-form-label">University</label>
+                    <label className="col-sm-2 col-form-label">Chapter</label>
                     <div className="col-sm-10 col-md-6 col-md-6">
-                        <select className="custom-select" onChange={handleChange} name="university" >
-                            {university.map((versity, i) => <option key={i} value={versity.name}>{versity.name}</option>)}
-                        </select>
+                        <CustomSelect clName="custom-select" name="chapter" func={handleChange} val={formValue.chapter} options={chapter} />
                     </div>
                 </div>
-                : null}
-            <div className="text-center form-group mt-5">
-                <button className="btn btn-lg btn-outline-primary" type="submit">Next</button>
+                <div className="form-group row justify-content-md-center">
+                    <label className="col-sm-2 col-form-label">Category</label>
+                    <div className="col-sm-10 col-md-6 col-md-6">
+                        <CustomSelect clName="custom-select" func={handleChange} name="category" val={formValue.category} options={category} />
+                    </div>
+                </div>
+                {isAdmission ?
+                    <div className="form-group row justify-content-md-center">
+                        <label className="col-sm-2 col-form-label">University</label>
+                        <div className="col-sm-10 col-md-6 col-md-6">
+                            <select className="custom-select" onChange={handleChange} name="university" >
+                                {university.map((versity, i) => <option key={i} value={versity.name}>{versity.name}</option>)}
+                            </select>
+                        </div>
+                    </div>
+                    : null}
+                <div className="text-center form-group mt-5">
+                    <button className="btn px-5 btn-outline-primary" type="submit">Next</button>
+                </div>
             </div>
         </form>
             :
             fileInput.map((file, ind) => {
                 return <form key={ind} className="form" onSubmit={handleSubmit} style={fileIndex !== ind ? { display: "none" } : { display: "inherit" }}>
-                    <h3 className="text-center">File / Video Upload {(fileIndex + 1) + " of " + fileInput.length}</h3>
+                    <div className="container">
+                        <h3 className="text-center">File / Video Upload {(fileIndex + 1) + " of " + fileInput.length}</h3>
 
-                    <div className="form-group row justify-content-md-center">
-                        <label className="col-sm-2 col-form-label">Title</label>
-                        <div className="col-sm-10 col-md-6 col-md-6">
-                            <input type="text" placeholder="Title" name="title" value={file.title} className="form-control" onChange={evt => fileChange(evt, ind)} />
-                        </div>
-                    </div>
-                    <div className="form-group row justify-content-md-center">
-                        <label className="col-sm-2 col-form-label">File Type</label>
-                        <div className="col-sm-10 col-md-6 col-md-6">
-                            <select className="custom-select" name="type" value={file.type} onChange={evt => fileChange(evt, ind)}>
-                                {fileType.map((type, i) => {
-                                    return <option key={i}>{type}</option>
-                                })}
-                            </select>
-                        </div>
-                    </div>
-                    {!file.isVideo ?
                         <div className="form-group row justify-content-md-center">
-                            <label className="col-sm-2 col-form-label">Choose File</label>
+                            <label className="col-sm-2 col-form-label">Title</label>
                             <div className="col-sm-10 col-md-6 col-md-6">
-                                <div className="custom-file">
-                                    <input type="file" className="custom-file-input" name="file" value="" id="customFile" onChange={evt => fileChange(evt, ind)} />
-                                    <label className="custom-file-label" htmlFor="customFile">Choose file</label>
-                                </div>
+                                <input type="text" placeholder="Title" name="title" value={file.title} className="form-control" onChange={evt => fileChange(evt, ind)} />
                             </div>
-                        </div> : <>
+                        </div>
+                        <div className="form-group row justify-content-md-center">
+                            <label className="col-sm-2 col-form-label">File Type</label>
+                            <div className="col-sm-10 col-md-6 col-md-6">
+                                <select className="custom-select" name="type" value={file.type} onChange={evt => fileChange(evt, ind)}>
+                                    {fileType.map((type, i) => {
+                                        return <option key={i}>{type}</option>
+                                    })}
+                                </select>
+                            </div>
+                        </div>
+                        {!file.isVideo ?
                             <div className="form-group row justify-content-md-center">
-                                <label className="col-sm-2 col-form-label">Video Url</label>
+                                <label className="col-sm-2 col-form-label">Choose File</label>
                                 <div className="col-sm-10 col-md-6 col-md-6">
-                                    <input type="text" placeholder="Video URL" name="url" value={file.url} className="form-control" onChange={evt => fileChange(evt, ind)} />
+                                    <div className="custom-file">
+                                        <input type="file" className="custom-file-input" name="file" value="" id="customFile" onChange={evt => fileChange(evt, ind)} />
+                                        <label className="custom-file-label" htmlFor="customFile">Choose file</label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="form-group row justify-content-md-center">
-                                <label className="col-sm-2 col-form-label">University</label>
-                                <div className="col-md-4">
-                                    <input type="number" placeholder="Size" name="size" value={file.size} className="form-control" onChange={evt => fileChange(evt, ind)} />
+                            </div> : <>
+                                <div className="form-group row justify-content-md-center">
+                                    <label className="col-sm-2 col-form-label">Video Url</label>
+                                    <div className="col-sm-10 col-md-6 col-md-6">
+                                        <input type="text" placeholder="Video URL" name="url" value={file.url} className="form-control" onChange={evt => fileChange(evt, ind)} />
+                                    </div>
                                 </div>
-                                <div className="col-md-2">
-                                    <select className="custom-select" name="timeCondition" value={file.timeCondition} onChange={evt => fileChange(evt, ind)}>
-                                        <option value="Minuites">Minuites</option>
-                                        <option value="Seconds">Seconds</option>
-                                    </select>
+                                <div className="form-group row justify-content-md-center">
+                                    <label className="col-sm-2 col-form-label">University</label>
+                                    <div className="col-md-4">
+                                        <input type="number" placeholder="Size" name="size" value={file.size} className="form-control" onChange={evt => fileChange(evt, ind)} />
+                                    </div>
+                                    <div className="col-md-2">
+                                        <select className="custom-select" name="timeCondition" value={file.timeCondition} onChange={evt => fileChange(evt, ind)}>
+                                            <option value="Minuites">Minuites</option>
+                                            <option value="Seconds">Seconds</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                        </>
-                    }
+                            </>
+                        }
 
-                    <div className="form-group row justify-content-md-center">
-                        <div className="col-md-8">
-                            {formValue.category !== "Admission" ? <div className="float-left"><button type="button" className="btn btn-outline-dark mr-3" onClick={prevFile}>Prev</button><button type="button" className="btn btn-outline-dark" onClick={addFile}>Next</button></div> : null}
-                            <div className="float-right"><button className="btn btn-outline-primary" type="submit">Submit</button></div>
+                        <div className="form-group row justify-content-md-center">
+                            <div className="col-md-8">
+                                <div className="float-left"><button type="button" className="btn btn-outline-dark mr-3" onClick={prevFile}>Prev</button></div>
+                                <div className="float-right"><button type="button" className="btn btn-outline-dark" onClick={addFile}>Next</button></div>
+                            </div>
+                        </div>
+                        <div className="form-group mt-5 text-center">
+                            <button className="btn px-5 btn-outline-primary" type="submit">Submit</button>
                         </div>
                     </div>
                 </form>
