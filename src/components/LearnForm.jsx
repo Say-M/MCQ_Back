@@ -64,11 +64,11 @@ const LearnForm = () => {
             });
     }, []);
 
-    const fileType = ["PDF", "Question", "Video"];
+    const fileType = ["Lecture", "Question", "Video"];
     const [fileIndex, setFileIndex] = useState(0)
     const [fileInput, setFileInput] = useState([{
         title: "",
-        type: "PDF",
+        type: "Lecture",
         file: "",
         url: "",
         size: "",
@@ -110,7 +110,7 @@ const LearnForm = () => {
             setFileInput(prevOpt => {
                 return [...prevOpt, {
                     title: "",
-                    type: "PDF",
+                    type: "Lecture",
                     file: "",
                     url: "",
                     size: "",
@@ -154,7 +154,7 @@ const LearnForm = () => {
                     });
                     setFileInput([{
                         title: "",
-                        type: "PDF",
+                        type: "Lecture",
                         file: "",
                         url: "",
                         size: "",
@@ -210,7 +210,7 @@ const LearnForm = () => {
             document
                 .update({
                     video: videoDoc,
-                    Lecture: pdfDoc,
+                    pdf: pdfDoc,
                     que: queDoc,
                 })
                 .then(() => {
@@ -221,7 +221,7 @@ const LearnForm = () => {
                     });
                     setFileInput([{
                         title: "",
-                        type: "PDF",
+                        type: "Lecture",
                         file: "",
                         url: "",
                         size: "",
@@ -264,7 +264,7 @@ const LearnForm = () => {
                                 url: result,
                                 title: f.title,
                             }).then((res) => {
-                                if (f.type === "PDF") {
+                                if (f.type === "Lecture") {
                                     pdfDoc += 1;
                                 } else {
                                     queDoc += 1;
@@ -364,7 +364,7 @@ const LearnForm = () => {
                             </div>
                         </div>
                         <div className="form-group row justify-content-md-center">
-                            <label className="col-sm-2 col-form-label">File Type</label>
+                            <label className="col-sm-2 col-form-label">Type</label>
                             <div className="col-sm-10 col-md-6 col-md-6">
                                 <select className="custom-select" name="type" value={file.type} onChange={evt => fileChange(evt, ind)}>
                                     {fileType.map((type, i) => {
