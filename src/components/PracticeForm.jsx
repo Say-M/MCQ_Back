@@ -307,8 +307,8 @@ const PracticeFrom = () => {
                         </div>
                         <label className="col-sm-2 col-md-1 pl-sm-0 col-form-label">Sec</label>
                     </div>
-                    <div className="text-right form-group row justify-content-end col-md-10 pr-0">
-                        <button type="submit" className="btn btn-outline-primary">Next</button>
+                    <div className="text-center form-group mt-5">
+                        <button type="submit" className="btn btn-lg btn-outline-primary">Next</button>
                     </div>
                 </div>
             </form> :

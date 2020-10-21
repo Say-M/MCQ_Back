@@ -345,8 +345,8 @@ const LearnForm = () => {
                     </div>
                 </div>
                 : null}
-            <div className="text-right form-group row justify-content-end col-md-10 pr-0">
-                <button className="btn btn-outline-primary" type="submit">Next</button>
+            <div className="text-center form-group mt-5">
+                <button className="btn btn-lg btn-outline-primary" type="submit">Next</button>
             </div>
         </form>
             :
