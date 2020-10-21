@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import db from "./firebase_config";
+import { escape } from 'html-escaper';
 import Input from "./Input"
 import CustomSelect from "./CustomSelect"
 import Spinner from "./Spinner"
@@ -82,7 +83,7 @@ const PracticeFrom = () => {
                 val.charAt(val.length - 1) +
                 end;
         }
-        return new_val;
+        return escape(new_val);
     }
     //input component onchange
     const handleChange = (evt) => {
@@ -127,7 +128,7 @@ const PracticeFrom = () => {
     }
 
     const questionChange = (e, key) => {
-        optInput[key].question = e.target.value;
+        optInput[key].question = escape(e.target.value);
         if (scripts.isSub || scripts.isSup) {
             optInput[key].question = supSubControl(e.target.value)
         }

@@ -4,10 +4,14 @@ import db from "./firebase_config";
 import Spinner from "./Spinner";
 
 const Mcq = () => {
+    const demo = "<p>Hello</p>"
+    console.log(HTMLBodyElement);
     const { id } = useParams();
     const [isSpin, setSpin] = useState(true);
     const [questions, setQuestions] = useState([{ mcq: [] }])
-
+    function createMarkup(htmlTag) {
+        return { __html: htmlTag };
+    }
     document.title = "ChemGenie | " + questions[0].title
     useEffect(() => {
         let arr = [];
@@ -42,10 +46,10 @@ const Mcq = () => {
                 <div className="row border">
                     {questions[0].mcq.map((que, i) => {
                         return <div key={i} className="my-3 col-md-6">
-                            <strong><p>{i + 1}. {que.question}</p></strong>
+                            <strong>{i + 1}. <p className="d-inline" dangerouslySetInnerHTML={createMarkup(que.question)}></p></strong>
                             <div className="row">
                                 {que.options.map((opt, i) => {
-                                    return <div key={i} className="col-sm-6 mb-2 pl-4"><strong>{i + 1})</strong> {opt}</div>
+                                    return <div key={i} className="col-sm-6 mb-2 pl-4"><strong>{i + 1}) </strong><p className="d-inline" dangerouslySetInnerHTML={createMarkup(opt)}></p></div>
                                 })}
                                 <div className="col-12 pl-4"><strong>Answer:</strong> {que.rightAnswer}</div>
                             </div>

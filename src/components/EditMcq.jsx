@@ -4,7 +4,7 @@ import Input from "./Input"
 import CustomSelect from "./CustomSelect"
 import Spinner from "./Spinner"
 import Alert from "./Alert";
-import { Redirect, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const PracticeFrom = () => {
     const { id } = useParams()
@@ -224,7 +224,6 @@ const PracticeFrom = () => {
         const data = formValue;
         data.mcq = optInput;
         data.total = optInput.length;
-
         const document = db.collection("question").doc(id);
         data.id = document.id;
         data.duration = (data.hour * 60 * 60 * 1000) + (data.min * 60 * 1000) + (data.sec * 1000)
