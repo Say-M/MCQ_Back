@@ -28,7 +28,7 @@ const Mcq = () => {
             {isSpin ? <Spinner /> : null}
             {isSpin ? null : <><h2 className="text-center mt-3">{questions[0].category}</h2>
                 <h3 className="text-center mb-3">{questions[0].title}</h3>
-                {questions[0].category === "Admission" ? <h3 className="text-center">{questions[0].university})</h3> : null}
+                {questions[0].category === "Admission" ? <h4 className="text-center">{questions[0].university})</h4> : null}
                 <div className="row">
                     <div className="col-6">
                         <p><strong>Total questions:</strong> {questions[0].total}</p>
