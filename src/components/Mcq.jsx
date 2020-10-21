@@ -4,8 +4,6 @@ import db from "./firebase_config";
 import Spinner from "./Spinner";
 
 const Mcq = () => {
-    const demo = "<p>Hello</p>"
-    console.log(HTMLBodyElement);
     const { id } = useParams();
     const [isSpin, setSpin] = useState(true);
     const [questions, setQuestions] = useState([{ mcq: [] }])
