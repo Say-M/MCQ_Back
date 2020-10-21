@@ -296,13 +296,13 @@ const PracticeFrom = () => {
                         </div>
                         <label className="col-sm-1 pl-sm-0 col-form-label">Hours</label>
                         <div className="col-sm-2 col-md-1">
-                            <Input placeholder="Minutes" clName="form-control" type="number" name="min" func={handleChange} val={formValue.min} />
+                            <Input placeholder="Min" clName="form-control" type="number" name="min" func={handleChange} val={formValue.min} />
                         </div>
-                        <label className="col-sm-1 pl-sm-0 col-form-label">Minutes</label>
+                        <label className="col-sm-1 pl-sm-0 col-form-label">Min</label>
                         <div className="col-sm-2 col-md-1">
-                            <Input placeholder="Seconds" clName="form-control" type="number" name="sec" func={handleChange} val={formValue.sec} />
+                            <Input placeholder="Sec" clName="form-control" type="number" name="sec" func={handleChange} val={formValue.sec} />
                         </div>
-                        <label className="col-sm-2 col-md-1 pl-sm-0 col-form-label">Seconds</label>
+                        <label className="col-sm-2 col-md-1 pl-sm-0 col-form-label">Sec</label>
                     </div>
                     <div className="text-right form-group row justify-content-end col-md-10 pr-0">
                         <button type="submit" className="btn btn-outline-primary">Next</button>
@@ -320,14 +320,14 @@ const PracticeFrom = () => {
                             </div>
                             <div className="form-group row justify-content-md-center">
                                 <label className="col-sm-2 col-form-label">Title</label>
-                                <div className="col-sm-10  col-md-6 col-md-6">
+                                <div className="col-sm-10 col-md-6 col-md-6">
                                     <textarea placeholder="Question Title" name="quesTitle" className="form-control" onChange={evt => questionChange(evt, ind)} value={opts.question}></textarea>
                                 </div>
                             </div>
                             {opts.options.map((input, i) => {
                                 return <div key={i} className="form-group row justify-content-md-center">
                                     <label className="col-sm-2 col-form-label">Option {i + 1}</label>
-                                    <div className="col-sm-10  col-md-6">
+                                    <div className="col-sm-10 col-md-6">
                                         <input placeholder={"Option " + (i + 1)} className="form-control" type="text" value={opts.options[i]} onChange={evt => handleOptChange(evt, i, ind)} />
                                     </div>
                                 </div>

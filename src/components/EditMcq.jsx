@@ -304,13 +304,13 @@ const PracticeFrom = () => {
                     </div>
                     <label className="col-sm-1 pl-sm-0 col-form-label">Hours</label>
                     <div className="col-sm-2 col-md-1">
-                        <Input placeholder="Minutes" clName="form-control" type="number" name="min" func={handleChange} val={formValue.min} />
+                        <Input placeholder="Min" clName="form-control" type="number" name="min" func={handleChange} val={formValue.min} />
                     </div>
-                    <label className="col-sm-1 pl-sm-0 col-form-label">Minutes</label>
+                    <label className="col-sm-1 pl-sm-0 col-form-label">Min</label>
                     <div className="col-sm-2 col-md-1">
-                        <Input placeholder="Seconds" clName="form-control" type="number" name="sec" func={handleChange} val={formValue.sec} />
+                        <Input placeholder="Sec" clName="form-control" type="number" name="sec" func={handleChange} val={formValue.sec} />
                     </div>
-                    <label className="col-sm-2 col-md-1 pl-sm-0 col-form-label">Seconds</label>
+                    <label className="col-sm-2 col-md-1 pl-sm-0 col-form-label">Sec</label>
                 </div>
                 <div className="text-right form-group row justify-content-end col-md-10 pr-0">
                     <button type="submit" className="btn btn-outline-primary">Next</button>
