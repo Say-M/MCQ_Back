@@ -210,7 +210,7 @@ const LearnForm = () => {
             document
                 .update({
                     video: videoDoc,
-                    pdf: pdfDoc,
+                    Lecture: pdfDoc,
                     que: queDoc,
                 })
                 .then(() => {
