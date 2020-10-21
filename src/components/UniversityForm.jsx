@@ -17,13 +17,13 @@ const UniversityForm = () => {
     const [formValue, setFormValue] = useState({
         name: "",
         shortName: "",
-        type: "Engenieer University",
-        file: {},
+        type: "Engineering University",
+        image: "",
     });
-    const type = ["Engenieer University", "Science and Tecnology University", "Public University"];
+    const type = ["Engineering University", "Science and Technology University", "Public University"];
     const handleChange = (evt) => {
         let { name, value } = evt.target;
-        if (name === "file") {
+        if (name === "image") {
             value = evt.target.files[0];
         }
         setFormValue(prevValue => {
@@ -78,10 +78,10 @@ const UniversityForm = () => {
             data.name.length &&
             data.shortName.length &&
             data.type.length &&
-            data.file
+            data.image
         ) {
             const document = db.collection("university").doc();
-            fileUploadTaskToStorage(data.file, (link) => {
+            fileUploadTaskToStorage(data.image, (link) => {
                 if (link) {
                     data.image = link;
                     document
@@ -142,7 +142,7 @@ const UniversityForm = () => {
                     <label className="col-sm-2 col-form-label">University Image</label>
                     <div className="col-sm-10 col-md-6">
                         <div className="custom-file">
-                            <input className="custom-file-input" accept="image/*" id="customFile" type="file" name="file" onChange={handleChange} value="" />
+                            <input className="custom-file-input" accept="image/*" id="customFile" type="file" name="image" onChange={handleChange} value="" />
                             <label className="custom-file-label" htmlFor="customFile">Choose file</label>
                         </div>
                     </div>
@@ -154,5 +154,4 @@ const UniversityForm = () => {
         </form>
     </>
 }
-
 export default UniversityForm;
