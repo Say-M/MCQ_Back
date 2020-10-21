@@ -17,7 +17,7 @@ const LearnTable = () => {
     const [isAlert, setAlert] = useState(false);
     const [alertClass, setAlertClass] = useState("");
     const [alertText, setAlertText] = useState("")
-    document.title = "ChemGenie | All questions"
+    document.title = "ChemGenie | All chapters"
     useEffect(() => {
         let arr = [];
         const snap = db

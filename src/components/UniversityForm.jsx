@@ -18,7 +18,7 @@ const UniversityForm = () => {
         name: "",
         shortName: "",
         type: "Engenieer University",
-        file: {},
+        image: {},
     });
     const type = ["Engenieer University", "Science and Tecnology University", "Public University"];
     const handleChange = (evt) => {
@@ -92,7 +92,7 @@ const UniversityForm = () => {
                                 name: "",
                                 shortName: "",
                                 type: "",
-                                file: "",
+                                image: "",
                             });
                         })
                         .catch(() => {
