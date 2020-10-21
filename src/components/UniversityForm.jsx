@@ -18,7 +18,7 @@ const UniversityForm = () => {
         name: "",
         shortName: "",
         type: "Engenieer University",
-        image: {},
+        file: {},
     });
     const type = ["Engenieer University", "Science and Tecnology University", "Public University"];
     const handleChange = (evt) => {
@@ -83,7 +83,7 @@ const UniversityForm = () => {
             const document = db.collection("university").doc();
             fileUploadTaskToStorage(data.file, (link) => {
                 if (link) {
-                    data.file = link;
+                    data.image = link;
                     document
                         .set(data)
                         .then(() => {
