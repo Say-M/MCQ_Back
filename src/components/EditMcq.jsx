@@ -262,58 +262,60 @@ const PracticeFrom = () => {
         {isSpin ? <Spinner /> : null}
         {addQuestion ?
             <form className="form" onSubmit={handleSubmit}>
-                <h3 className="text-center">Update Question Set</h3>
-                <div className="form-group row justify-content-md-center">
-                    <label className="col-sm-2 col-form-label">Title</label>
-                    <div className="col-sm-10 col-md-6">
-                        <Input placeholder="Title" clName="form-control" type="text" name="title" func={handleChange} val={formValue.title} />
-                    </div>
-                </div>
-                <div className="form-group row justify-content-md-center">
-                    <label className="col-sm-2 col-form-label">Category</label>
-                    <div className="col-sm-10 col-md-6">
-                        <CustomSelect clName="custom-select" func={handleChange} name="category" val={formValue.category} options={categorys} />
-                    </div>
-                </div>
-                {isAdmission ?
+                <div className="container">
+                    <h3 className="text-center">Update Question Set</h3>
                     <div className="form-group row justify-content-md-center">
-                        <label className="col-sm-2 col-form-label">University</label>
+                        <label className="col-sm-2 col-form-label">Title</label>
                         <div className="col-sm-10 col-md-6">
-                            <select className="custom-select" onChange={handleChange} name="university" val={formValue.university}  >
-                                {universitys.map((versity, i) => <option key={i} value={versity.name}>{versity.name}</option>)}
-                            </select>
+                            <Input placeholder="Title" clName="form-control" type="text" name="title" func={handleChange} val={formValue.title} />
                         </div>
                     </div>
-                    : null}
-                <div className="form-group row justify-content-md-center">
-                    <label className="col-sm-2 col-form-label">Mark Per Question</label>
-                    <div className="col-sm-10 col-md-6">
-                        <Input placeholder="Total Marks" clName="form-control" type="number" name="totalMark" func={handleChange} val={formValue.totalMark} />
+                    <div className="form-group row justify-content-md-center">
+                        <label className="col-sm-2 col-form-label">Category</label>
+                        <div className="col-sm-10 col-md-6">
+                            <CustomSelect clName="custom-select" func={handleChange} name="category" val={formValue.category} options={categorys} />
+                        </div>
                     </div>
-                </div>
-                <div className="form-group row justify-content-md-center">
-                    <label className="col-sm-2 col-form-label">Pass (%)</label>
-                    <div className="col-sm-10 col-md-6">
-                        <Input placeholder="Pass" clName="form-control" type="number" name="pass" func={handleChange} val={formValue.pass} />
+                    {isAdmission ?
+                        <div className="form-group row justify-content-md-center">
+                            <label className="col-sm-2 col-form-label">University</label>
+                            <div className="col-sm-10 col-md-6">
+                                <select className="custom-select" onChange={handleChange} name="university" val={formValue.university}  >
+                                    {universitys.map((versity, i) => <option key={i} value={versity.name}>{versity.name}</option>)}
+                                </select>
+                            </div>
+                        </div>
+                        : null}
+                    <div className="form-group row justify-content-md-center">
+                        <label className="col-sm-2 col-form-label">Mark Per Question</label>
+                        <div className="col-sm-10 col-md-6">
+                            <Input placeholder="Total Marks" clName="form-control" type="number" name="totalMark" func={handleChange} val={formValue.totalMark} />
+                        </div>
                     </div>
-                </div>
-                <div className="form-group row justify-content-md-center">
-                    <label className="col-sm-2 col-form-label">Duration</label>
-                    <div className="col-sm-2 col-md-1">
-                        <Input placeholder="Hours" clName="form-control" type="number" name="hour" func={handleChange} val={formValue.hour} />
+                    <div className="form-group row justify-content-md-center">
+                        <label className="col-sm-2 col-form-label">Pass (%)</label>
+                        <div className="col-sm-10 col-md-6">
+                            <Input placeholder="Pass" clName="form-control" type="number" name="pass" func={handleChange} val={formValue.pass} />
+                        </div>
                     </div>
-                    <label className="col-sm-1 pl-sm-0 col-form-label">Hours</label>
-                    <div className="col-sm-2 col-md-1">
-                        <Input placeholder="Min" clName="form-control" type="number" name="min" func={handleChange} val={formValue.min} />
+                    <div className="form-group row justify-content-md-center">
+                        <label className="col-sm-2 col-form-label">Duration</label>
+                        <div className="col-sm-2 col-md-1">
+                            <Input placeholder="Hours" clName="form-control" type="number" name="hour" func={handleChange} val={formValue.hour} />
+                        </div>
+                        <label className="col-sm-1 pl-sm-0 col-form-label">Hours</label>
+                        <div className="col-sm-2 col-md-1">
+                            <Input placeholder="Min" clName="form-control" type="number" name="min" func={handleChange} val={formValue.min} />
+                        </div>
+                        <label className="col-sm-1 pl-sm-0 col-form-label">Min</label>
+                        <div className="col-sm-2 col-md-1">
+                            <Input placeholder="Sec" clName="form-control" type="number" name="sec" func={handleChange} val={formValue.sec} />
+                        </div>
+                        <label className="col-sm-2 col-md-1 pl-sm-0 col-form-label">Sec</label>
                     </div>
-                    <label className="col-sm-1 pl-sm-0 col-form-label">Min</label>
-                    <div className="col-sm-2 col-md-1">
-                        <Input placeholder="Sec" clName="form-control" type="number" name="sec" func={handleChange} val={formValue.sec} />
+                    <div className="text-right form-group row justify-content-end col-md-10 pr-0">
+                        <button type="submit" className="btn btn-outline-primary">Next</button>
                     </div>
-                    <label className="col-sm-2 col-md-1 pl-sm-0 col-form-label">Sec</label>
-                </div>
-                <div className="text-right form-group row justify-content-end col-md-10 pr-0">
-                    <button type="submit" className="btn btn-outline-primary">Next</button>
                 </div>
             </form> :
             <>

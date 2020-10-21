@@ -118,22 +118,34 @@ const UniversityForm = () => {
             <Alert alClass={alertClass} text={alertText} /> : null}
         <form className="form" onSubmit={handleSubmit}>
             <h3 className="text-center">Add University</h3>
-            <div className="form-group">
-                <Input placeholder="University Name" clName="form-control" type="text" name="varsityName" func={handleChange} val={formValue.varsityName} />
-            </div>
-            <div className="form-group">
-                <Input placeholder="Short Name" clName="form-control" type="text" name="shortName" func={handleChange} val={formValue.shortName} />
-            </div>
-            <div className="form-group">
-                <CustomSelect clName="custom-select" name="type" func={handleChange} val={formValue.type} options={type} />
-            </div>
-            <div className="form-group">
-                <div className="custom-file">
-                    <Input clName="custom-file-input" id="customFile" type="file" name="file" func={handleChange} val="" />
-                    <label className="custom-file-label" htmlFor="customFile">Choose file</label>
+            <div className="form-group row justify-content-md-center">
+                <label className="col-sm-2 col-form-label">University Name</label>
+                <div className="col-sm-10 col-md-6 col-md-6">
+                    <Input placeholder="Name" clName="form-control" type="text" name="varsityName" func={handleChange} val={formValue.varsityName} />
                 </div>
             </div>
-            <div className="text-right form-group">
+            <div className="form-group row justify-content-md-center">
+                <label className="col-sm-2 col-form-label">Short Name</label>
+                <div className="col-sm-10 col-md-6 col-md-6">
+                    <Input placeholder="Short Name" clName="form-control" type="text" name="shortName" func={handleChange} val={formValue.shortName} />
+                </div>
+            </div>
+            <div className="form-group row justify-content-md-center">
+                <label className="col-sm-2 col-form-label">Select Type</label>
+                <div className="col-sm-10 col-md-6 col-md-6">
+                    <CustomSelect clName="custom-select" name="type" func={handleChange} val={formValue.type} options={type} />
+                </div>
+            </div>
+            <div className="form-group row justify-content-md-center">
+                <label className="col-sm-2 col-form-label">University Image</label>
+                <div className="col-sm-10 col-md-6 col-md-6">
+                    <div className="custom-file">
+                        <Input clName="custom-file-input" id="customFile" type="file" name="file" func={handleChange} val="" />
+                        <label className="custom-file-label" htmlFor="customFile">Choose file</label>
+                    </div>
+                </div>
+            </div>
+            <div className="text-right form-group row justify-content-end col-md-10 pr-0">
                 <button type="submit" className="btn btn-outline-primary">Submit</button>
             </div>
         </form>
