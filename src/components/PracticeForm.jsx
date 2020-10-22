@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { v4 as uuid4 } from 'uuid';
 import db, { storage } from "./firebase_config";
 import Input from "./Input"
 import CustomSelect from "./CustomSelect"
@@ -272,7 +273,10 @@ const PracticeFrom = () => {
             callback(1)
         }
         else {
-            const uploadRef = storage.ref("logo").child(file.name ?? null);
+            const file_extension = file.name.split('.').pop();
+            const new_file_name = uuid4()+ "." +file_extension
+            console.log(new_file_name)
+            const uploadRef = storage.ref("logo").child(new_file_name);
             const uploadTask = uploadRef.put(file);
             uploadTask.on(
                 "state_changed",

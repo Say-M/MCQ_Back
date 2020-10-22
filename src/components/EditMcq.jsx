@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import db from "./firebase_config";
+import { v4 as uuid4 } from 'uuid';
+import db, {storage} from "./firebase_config";
 import Input from "./Input"
 import CustomSelect from "./CustomSelect"
 import Spinner from "./Spinner"
@@ -221,42 +222,119 @@ const PracticeFrom = () => {
         }
     }
 
-    //Upload Data
     const uploadDataToFirestore = async () => {
         setSpin(true)
         const data = formValue;
         data.mcq = optInput;
         data.total = optInput.length;
+        console.log(data);
+        let mcqCount = 0;
         const document = db.collection("question").doc(id);
-        data.id = document.id;
-        data.duration = (data.hour * 60 * 60 * 1000) + (data.min * 60 * 1000) + (data.sec * 1000)
-
-        document
-            .update(data)
-            .then(() => {
-                setQueIndex(0);
-                setAddQuestion(true);
-                setAlert(true);
-                setAlertClass("alert alert-success");
-                setAlertText("Questions successfully Edited");
-                setTimeout(() => {
-                    setAlert(false);
-                    setAlertClass("");
-                    setAlertText("");
-                }, 3000)
-                setSpin(false);
+        data.mcq.forEach((mcq, index) => {
+            fileUploadTaskToStorage(mcq.image, (link) => {
+                if (link !== 1) {
+                    mcq.image = link;
+                }
+                else {
+                    mcq.image = ""
+                }
+                mcqCount += 1
+                if (mcqCount >= data.total) {
+                    data.id = document.id;
+                    data.duration = (data.hour * 60 * 60 * 1000) + (data.min * 60 * 1000) + (data.sec * 1000)
+                    document
+                        .update(data)
+                        .then(() => {
+                            setQueIndex(0);
+                            setAddQuestion(true);
+                            setAlert(true);
+                            setAlertClass("alert alert-success");
+                            setAlertText("Questions successfully Edited");
+                            setTimeout(() => {
+                                setAlert(false);
+                                setAlertClass("");
+                                setAlertText("");
+                            }, 3000)
+                            // setOptInput([{
+                            //     question: "",
+                            //     image: "",
+                            //     options: ["", ""],
+                            //     rightAnswer: "1"
+                            // }]);
+                            // setFormValue({
+                            //     title: "",
+                            //     category: "HSC",
+                            //     university: "",
+                            //     totalMark: "",
+                            //     pass: "",
+                            //     duration: "",
+                            //     hour: "",
+                            //     min: "",
+                            //     sec: "",
+                            //     total: 0,
+                            // });
+                            setSpin(false);
+                        })
+                        .catch(() => {
+                            setAlertClass("alert alert-danger");
+                            setAlertText("Que addition failed. Please try again.");
+                            setTimeout(() => {
+                                setAlert(false);
+                                setAlertClass("");
+                                setAlertText("");
+                            }, 3000)
+                            setSpin(false)
+                        });
+                }
             })
-            .catch(() => {
-                setAlertClass("alert alert-danger");
-                setAlertText("Que addition failed. Please try again.");
-                setTimeout(() => {
-                    setAlert(false);
-                    setAlertClass("");
-                    setAlertText("");
-                }, 3000)
-                setSpin(false)
-            });
+        })
+
     };
+    const fileUploadTaskToStorage = async (file, callback) => {
+
+        if ((typeof file) == 'string') {
+            callback(1)
+        }
+        else {
+            const file_extension = file.name.split('.').pop();
+            const new_file_name = uuid4()+ "." + file_extension;
+            const uploadRef = storage.ref("logo").child(new_file_name);
+            const uploadTask = uploadRef.put(file);
+            uploadTask.on(
+                "state_changed",
+                function (snapshot) {
+                    // Observe state change events such as progress, pause, and resume
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log("Upload is " + progress + "% done");
+                    if (progress < 100) {
+                        setSpin(true)
+                    } else {
+                        setSpin(false)
+                        setAlert(true);
+                        setAlertClass("alert alert-success alert-dismissible fade show");
+                        setAlertText("University added successfully completed");
+                        setTimeout(() => {
+                            setAlert(false);
+                            setAlertClass("");
+                            setAlertText("");
+                        }, 3000)
+                    }
+                },
+                function (error) {
+                    callback(false);
+                },
+                function () {
+                    // Handle successful uploads on complete
+                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                    uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                        console.log("File available at", downloadURL);
+                        callback(downloadURL);
+                    });
+                }
+            );
+        }
+    }
 
     //show Image
     function readURL(e) {
