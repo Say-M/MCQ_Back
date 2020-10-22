@@ -10,6 +10,7 @@ const Mcq = () => {
     function createMarkup(htmlTag) {
         return { __html: htmlTag };
     }
+    const banChar = ["ক", "খ", "গ", "ঘ", "ঙ", "চ", "ছ", "জ", "ঝ", "ঞ"];
     document.title = "ChemGenie | " + questions[0].title
     useEffect(() => {
         let arr = [];
@@ -26,7 +27,7 @@ const Mcq = () => {
             });
     }, []);
     return <>
-        <div className="container">
+        <div className="container mb-5">
             {isSpin ? <Spinner /> : null}
             {isSpin ? null : <><h2 className="text-center mt-3">{questions[0].category}</h2>
                 <h3 className="text-center mb-3">{questions[0].title}</h3>
@@ -47,9 +48,9 @@ const Mcq = () => {
                             <strong>{i + 1}. <p className="d-inline-block" dangerouslySetInnerHTML={createMarkup(que.question)}></p></strong>
                             <div className="row">
                                 {que.options.map((opt, i) => {
-                                    return <div key={i} className="col-sm-6 mb-2 pl-4"><strong>{i + 1}) </strong><p className="d-inline" dangerouslySetInnerHTML={createMarkup(opt)}></p></div>
+                                    return <div key={i} className="col-sm-6 mb-2 pl-4"><strong>{banChar[i]}) </strong><p className="d-inline" dangerouslySetInnerHTML={createMarkup(opt)}></p></div>
                                 })}
-                                <div className="col-12 pl-4"><strong>Answer:</strong> {que.rightAnswer}</div>
+                                <div className="col-12 pl-4"><strong>Answer:</strong> {banChar[que.rightAnswer - 1]}</div>
                             </div>
                         </div>
                     })}

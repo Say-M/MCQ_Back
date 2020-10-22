@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import db from "./firebase_config";
+import Spinner from "./Spinner";
 
 const University = () => {
+    const [isSpin, setSpin] = useState(true)
     const [university, setUniversity] = useState([])
     document.title = "ChemGenie | All universitys"
 
@@ -16,12 +18,13 @@ const University = () => {
                     arr.push(d.data());
                 });
                 setUniversity(arr);
+                setSpin(false)
             });
     }, []);
 
 
     return <>
-        <div className="container table-item">
+        {isSpin ? <Spinner /> : <div className="container table-item">
             <NavLink exact className="btn btn-primary float-right mb-3" to="/university/add_university">Add</NavLink>
             <div className="text-nowrap table-responsive">
                 <table className="table table-hover table-bordered">
@@ -37,7 +40,7 @@ const University = () => {
                     </tbody>
                 </table>
             </div>
-        </div>
+        </div>}
     </>
 }
 

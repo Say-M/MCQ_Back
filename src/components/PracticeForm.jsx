@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import db from "./firebase_config";
+import db, { storage } from "./firebase_config";
 import Input from "./Input"
 import CustomSelect from "./CustomSelect"
 import Spinner from "./Spinner"
@@ -53,10 +53,12 @@ const PracticeFrom = () => {
                 updateQueSetInfo({ university: arr[0]?.name });
             });
     }, []);
-
+    //Question Image
+    const [queImg, setQueImg] = useState([]);
     //Option
     const [optInput, setOptInput] = useState([{
         question: "",
+        image: "",
         options: ["", ""],
         rightAnswer: 1,
     }])
@@ -82,7 +84,7 @@ const PracticeFrom = () => {
                 val.charAt(val.length - 1) +
                 end;
         }
-        return escape(new_val);
+        return new_val;
     }
     //input component onchange
     const handleChange = (evt) => {
@@ -127,7 +129,7 @@ const PracticeFrom = () => {
     }
 
     const questionChange = (e, key) => {
-        optInput[key].question = escape(e.target.value);
+        optInput[key].question = e.target.value;
         if (scripts.isSub || scripts.isSup) {
             optInput[key].question = supSubControl(e.target.value)
         }
@@ -167,6 +169,7 @@ const PracticeFrom = () => {
             setOptInput(prevOpt => {
                 return [...prevOpt, {
                     question: "",
+                    image: "",
                     options: ["", ""],
                     rightAnswer: "1"
                 }]
@@ -202,6 +205,38 @@ const PracticeFrom = () => {
         data.total = optInput.length;
 
         const document = db.collection("question").doc();
+        fileUploadTaskToStorage(data.image, (link) => {
+            if (link) {
+                data.image = link;
+                document
+                    .set(data)
+                    .then(() => {
+                        // showAlert("University Addition Successful", "success");
+                        setFormValue({
+                            name: "",
+                            shortName: "",
+                            type: "",
+                            image: "",
+                        });
+                    })
+                    .catch(() => {
+                        setAlertText("University Addition Failed. Try again");
+                        setTimeout(() => {
+                            setAlert(false);
+                            setAlertClass("");
+                            setAlertText("");
+                        }, 3000)
+                    });
+            } else {
+                setAlertClass("alert alert-danger alert-dismissible fade show");
+                setAlertText("University Addition Failed. Try again");
+                setTimeout(() => {
+                    setAlert(false);
+                    setAlertClass("");
+                    setAlertText("");
+                }, 3000)
+            }
+        });
         data.id = document.id;
         data.duration = (data.hour * 60 * 60 * 1000) + (data.min * 60 * 1000) + (data.sec * 1000)
         document
@@ -219,6 +254,7 @@ const PracticeFrom = () => {
                 }, 3000)
                 setOptInput([{
                     question: "",
+                    image: "",
                     options: ["", ""],
                     rightAnswer: "1"
                 }]);
@@ -247,7 +283,64 @@ const PracticeFrom = () => {
                 setSpin(false)
             });
     };
+    const fileUploadTaskToStorage = async (file, callback) => {
+        const uploadRef = storage.ref("logo").child(file?.name ?? null);
+        const uploadTask = uploadRef.put(file);
+        uploadTask.on(
+            "state_changed",
+            function (snapshot) {
+                // Observe state change events such as progress, pause, and resume
+                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log("Upload is " + progress + "% done");
+                if (progress < 100) {
+                    setSpin(true)
+                } else {
+                    setSpin(false)
+                    setAlert(true);
+                    setAlertClass("alert alert-success alert-dismissible fade show");
+                    setAlertText("University added successfully completed");
+                    setTimeout(() => {
+                        setAlert(false);
+                        setAlertClass("");
+                        setAlertText("");
+                    }, 3000)
+                }
+            },
+            function (error) {
+                callback(false);
+            },
+            function () {
+                // Handle successful uploads on complete
+                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                    console.log("File available at", downloadURL);
+                    callback(downloadURL);
+                });
+            }
+        );
+    }
 
+    //show Image
+    function readURL(e) {
+        const inputImg = e.target.files[0];
+
+        var reader = new FileReader();
+        var url = reader.readAsDataURL(inputImg);
+        if (inputImg) {
+            optInput[queIndex].image = inputImg;
+            setOptInput(prevOpt => {
+                return [...prevOpt]
+            })
+            reader.onload = function (evt) {
+                queImg[queIndex] = reader.result;
+                setQueImg(prevImg => {
+                    return [...prevImg]
+                })
+            };
+            // reader.readAsDataURL(inputImg.files[0]);
+        }
+    }
 
     return <>
         {isAlert ?
@@ -324,6 +417,20 @@ const PracticeFrom = () => {
                                 <label className="col-sm-2 col-form-label">Title</label>
                                 <div className="col-sm-10 col-md-6 col-md-6">
                                     <textarea placeholder="Question Title" name="quesTitle" className="form-control" onChange={evt => questionChange(evt, ind)} value={opts.question}></textarea>
+                                </div>
+                            </div>
+                            <div className="form-group row justify-content-md-center">
+                                <div className="text-center">
+                                    <img style={{ width: "200px" }} src={queImg[ind]} alt="" />
+                                </div>
+                            </div>
+                            <div className="form-group row justify-content-md-center">
+                                <label className="col-sm-2 col-form-label">Question Image</label>
+                                <div className="col-sm-10 col-md-6 col-md-6">
+                                    <div className="custom-file">
+                                        <input className="custom-file-input" accept="image/*" id="customFile" type="file" name="image" onChange={readURL} />
+                                        <label className="custom-file-label" htmlFor="customFile">Choose file</label>
+                                    </div>
                                 </div>
                             </div>
                             {opts.options.map((input, i) => {
