@@ -206,7 +206,6 @@ const PracticeFrom = () => {
         console.log(data);
         let mcqCount = 0;
         const document = db.collection("question").doc();
-<<<<<<< HEAD
         data.mcq.forEach((mcq, index) => {
             fileUploadTaskToStorage(mcq.image, (link) => {
                 if (link !== 1) {
@@ -217,18 +216,6 @@ const PracticeFrom = () => {
                 }
                 mcqCount += 1
                 if (mcqCount >= data.total) {
-=======
-        data.mcq.forEach((mcq, index)=>{
-            fileUploadTaskToStorage(mcq.image, (link)=>{
-                if(link !== 1){
-                    mcq.image = link;
-                }
-                else{
-                    mcq.image = ""
-                }
-                mcqCount +=1
-                if(mcqCount >= data.total){
->>>>>>> 127175adb0f2873af71c5cc46915a5b8c1bd32fd
                     data.id = document.id;
                     data.duration = (data.hour * 60 * 60 * 1000) + (data.min * 60 * 1000) + (data.sec * 1000)
                     document
@@ -277,60 +264,14 @@ const PracticeFrom = () => {
                 }
             })
         })
-<<<<<<< HEAD
-=======
-        // fileUploadTaskToStorage(data.image, (link) => {
-        //     if (link || link === -1) {
-        //         if(link !== -1) {
-        //             data.image = link;
-        //         }
-        //
-        //         document
-        //             .set(data)
-        //             .then(() => {
-        //                 // showAlert("University Addition Successful", "success");
-        //                 setFormValue({
-        //                     name: "",
-        //                     shortName: "",
-        //                     type: "",
-        //                     image: "",
-        //                 });
-        //             })
-        //             .catch(() => {
-        //                 setAlertText("University Addition Failed. Try again");
-        //                 setTimeout(() => {
-        //                     setAlert(false);
-        //                     setAlertClass("");
-        //                     setAlertText("");
-        //                 }, 3000)
-        //             });
-        //     } else {
-        //         setAlertClass("alert alert-danger alert-dismissible fade show");
-        //         setAlertText("University Addition Failed. Try again");
-        //         setTimeout(() => {
-        //             setAlert(false);
-        //             setAlertClass("");
-        //             setAlertText("");
-        //         }, 3000)
-        //     }
-        // });
->>>>>>> 127175adb0f2873af71c5cc46915a5b8c1bd32fd
 
     };
     const fileUploadTaskToStorage = async (file, callback) => {
 
         if (file == "") {
-<<<<<<< HEAD
             callback(1)
         }
         else {
-=======
-            console.log('No File....');
-            callback(1)
-        }
-        else {
-            console.log("file found");
->>>>>>> 127175adb0f2873af71c5cc46915a5b8c1bd32fd
             const uploadRef = storage.ref("logo").child(file.name ?? null);
             const uploadTask = uploadRef.put(file);
             uploadTask.on(
