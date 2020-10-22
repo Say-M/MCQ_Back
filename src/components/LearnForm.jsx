@@ -378,8 +378,8 @@ const LearnForm = () => {
                                 <label className="col-sm-2 col-form-label">Choose File</label>
                                 <div className="col-sm-10 col-md-6 col-md-6">
                                     <div className="custom-file">
-                                        <input type="file" className="custom-file-input" name="file" value="" id="customFile" onChange={evt => fileChange(evt, ind)} />
-                                        <label className="custom-file-label" htmlFor="customFile">Choose file</label>
+                                        <input type="file" className="custom-file-input" name="file" id="customFile" onChange={evt => fileChange(evt, ind)} />
+                                        <label style={{ overflow: "hidden" }} className="custom-file-label" htmlFor="customFile">{file.file.name ? file.file.name : "Choose file"}</label>
                                     </div>
                                 </div>
                             </div> : <>

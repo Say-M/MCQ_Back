@@ -378,16 +378,8 @@ const LearnForm = () => {
                                 </select>
                             </div>
                         </div>
-                        {!fileInput.type === "Video" ?
-                            <div className="form-group row justify-content-md-center">
-                                <label className="col-sm-2 col-form-label">Choose File</label>
-                                <div className="col-sm-10 col-md-6 col-md-6">
-                                    <div className="custom-file">
-                                        <input type="file" className="custom-file-input" name="file" value="" id="customFile" onChange={evt => fileChange(evt, ind)} />
-                                        <label className="custom-file-label" htmlFor="customFile">Choose file</label>
-                                    </div>
-                                </div>
-                            </div> : <>
+                        {file.type === "Video" ?
+                            <>
                                 <div className="form-group row justify-content-md-center">
                                     <label className="col-sm-2 col-form-label">Video Url</label>
                                     <div className="col-sm-10 col-md-6 col-md-6">
@@ -395,7 +387,7 @@ const LearnForm = () => {
                                     </div>
                                 </div>
                                 <div className="form-group row justify-content-md-center">
-                                    <label className="col-sm-2 col-form-label">University</label>
+                                    <label className="col-sm-2 col-form-label">Size</label>
                                     <div className="col-md-4">
                                         <input type="number" placeholder="Size" name="size" value={file.size} className="form-control" onChange={evt => fileChange(evt, ind)} />
                                     </div>
@@ -406,7 +398,16 @@ const LearnForm = () => {
                                         </select>
                                     </div>
                                 </div>
-                            </>
+                            </> :
+                            <div className="form-group row justify-content-md-center">
+                                <label className="col-sm-2 col-form-label">Choose File</label>
+                                <div className="col-sm-10 col-md-6 col-md-6">
+                                    <div className="custom-file">
+                                        <input type="file" className="custom-file-input" name="file" id="customFile" onChange={evt => fileChange(evt, ind)} />
+                                        <label style={{ overflow: "hidden" }} className="custom-file-label" htmlFor="customFile">{file.file ? file.file.name : "Choose file"}</label>
+                                    </div>
+                                </div>
+                            </div>
                         }
 
                         <div className="form-group row justify-content-md-center">

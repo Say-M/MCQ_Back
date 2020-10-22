@@ -417,7 +417,7 @@ const PracticeFrom = () => {
                                 <div className="col-sm-10 col-md-6 col-md-6">
                                     <div className="custom-file">
                                         <input className="custom-file-input" accept="image/*" id="customFile" type="file" name="image" onChange={readURL} />
-                                        <label className="custom-file-label" htmlFor="customFile">Choose file</label>
+                                        <label style={{overflow: "hidden"}} className="custom-file-label" htmlFor="customFile">{opts.image.name ? opts.image.name : "Choose file"}</label>
                                     </div>
                                 </div>
                             </div>
