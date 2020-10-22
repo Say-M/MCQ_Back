@@ -203,122 +203,111 @@ const PracticeFrom = () => {
         const data = formValue;
         data.mcq = optInput;
         data.total = optInput.length;
-
+        console.log(data);
+        let mcqCount = 0;
         const document = db.collection("question").doc();
-        fileUploadTaskToStorage(data.image, (link) => {
-            if (link) {
-                data.image = link;
-                document
-                    .set(data)
-                    .then(() => {
-                        // showAlert("University Addition Successful", "success");
-                        setFormValue({
-                            name: "",
-                            shortName: "",
-                            type: "",
-                            image: "",
+        data.mcq.forEach((mcq, index) => {
+            fileUploadTaskToStorage(mcq.image, (link) => {
+                if (link !== 1) {
+                    mcq.image = link;
+                }
+                else {
+                    mcq.image = ""
+                }
+                mcqCount += 1
+                if (mcqCount >= data.total) {
+                    data.id = document.id;
+                    data.duration = (data.hour * 60 * 60 * 1000) + (data.min * 60 * 1000) + (data.sec * 1000)
+                    document
+                        .set(data)
+                        .then(() => {
+                            setQueIndex(0);
+                            setAddQuestion(true);
+                            setAlert(true);
+                            setAlertClass("alert alert-success");
+                            setAlertText("Questions successfully added");
+                            setTimeout(() => {
+                                setAlert(false);
+                                setAlertClass("");
+                                setAlertText("");
+                            }, 3000)
+                            setOptInput([{
+                                question: "",
+                                image: "",
+                                options: ["", ""],
+                                rightAnswer: "1"
+                            }]);
+                            setFormValue({
+                                title: "",
+                                category: "HSC",
+                                university: "",
+                                totalMark: "",
+                                pass: "",
+                                duration: "",
+                                hour: "",
+                                min: "",
+                                sec: "",
+                                total: 0,
+                            });
+                            setSpin(false);
+                        })
+                        .catch(() => {
+                            setAlertClass("alert alert-danger");
+                            setAlertText("Que addition failed. Please try again.");
+                            setTimeout(() => {
+                                setAlert(false);
+                                setAlertClass("");
+                                setAlertText("");
+                            }, 3000)
+                            setSpin(false)
                         });
-                    })
-                    .catch(() => {
-                        setAlertText("University Addition Failed. Try again");
+                }
+            })
+        })
+
+    };
+    const fileUploadTaskToStorage = async (file, callback) => {
+
+        if (file == "") {
+            callback(1)
+        }
+        else {
+            const uploadRef = storage.ref("logo").child(file.name ?? null);
+            const uploadTask = uploadRef.put(file);
+            uploadTask.on(
+                "state_changed",
+                function (snapshot) {
+                    // Observe state change events such as progress, pause, and resume
+                    // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                    let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    console.log("Upload is " + progress + "% done");
+                    if (progress < 100) {
+                        setSpin(true)
+                    } else {
+                        setSpin(false)
+                        setAlert(true);
+                        setAlertClass("alert alert-success alert-dismissible fade show");
+                        setAlertText("University added successfully completed");
                         setTimeout(() => {
                             setAlert(false);
                             setAlertClass("");
                             setAlertText("");
                         }, 3000)
+                    }
+                },
+                function (error) {
+                    callback(false);
+                },
+                function () {
+                    // Handle successful uploads on complete
+                    // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                    uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+                        console.log("File available at", downloadURL);
+                        callback(downloadURL);
                     });
-            } else {
-                setAlertClass("alert alert-danger alert-dismissible fade show");
-                setAlertText("University Addition Failed. Try again");
-                setTimeout(() => {
-                    setAlert(false);
-                    setAlertClass("");
-                    setAlertText("");
-                }, 3000)
-            }
-        });
-        data.id = document.id;
-        data.duration = (data.hour * 60 * 60 * 1000) + (data.min * 60 * 1000) + (data.sec * 1000)
-        document
-            .set(data)
-            .then(() => {
-                setQueIndex(0);
-                setAddQuestion(true);
-                setAlert(true);
-                setAlertClass("alert alert-success");
-                setAlertText("Questions successfully added");
-                setTimeout(() => {
-                    setAlert(false);
-                    setAlertClass("");
-                    setAlertText("");
-                }, 3000)
-                setOptInput([{
-                    question: "",
-                    image: "",
-                    options: ["", ""],
-                    rightAnswer: "1"
-                }]);
-                setFormValue({
-                    title: "",
-                    category: "HSC",
-                    university: "",
-                    totalMark: "",
-                    pass: "",
-                    duration: "",
-                    hour: "",
-                    min: "",
-                    sec: "",
-                    total: 0,
-                });
-                setSpin(false);
-            })
-            .catch(() => {
-                setAlertClass("alert alert-danger");
-                setAlertText("Que addition failed. Please try again.");
-                setTimeout(() => {
-                    setAlert(false);
-                    setAlertClass("");
-                    setAlertText("");
-                }, 3000)
-                setSpin(false)
-            });
-    };
-    const fileUploadTaskToStorage = async (file, callback) => {
-        const uploadRef = storage.ref("logo").child(file?.name ?? null);
-        const uploadTask = uploadRef.put(file);
-        uploadTask.on(
-            "state_changed",
-            function (snapshot) {
-                // Observe state change events such as progress, pause, and resume
-                // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                console.log("Upload is " + progress + "% done");
-                if (progress < 100) {
-                    setSpin(true)
-                } else {
-                    setSpin(false)
-                    setAlert(true);
-                    setAlertClass("alert alert-success alert-dismissible fade show");
-                    setAlertText("University added successfully completed");
-                    setTimeout(() => {
-                        setAlert(false);
-                        setAlertClass("");
-                        setAlertText("");
-                    }, 3000)
                 }
-            },
-            function (error) {
-                callback(false);
-            },
-            function () {
-                // Handle successful uploads on complete
-                // For instance, get the download URL: https://firebasestorage.googleapis.com/...
-                uploadTask.snapshot.ref.getDownloadURL().then(function (downloadURL) {
-                    console.log("File available at", downloadURL);
-                    callback(downloadURL);
-                });
-            }
-        );
+            );
+        }
     }
 
     //show Image

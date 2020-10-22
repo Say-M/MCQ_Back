@@ -46,6 +46,9 @@ const Mcq = () => {
                     {questions[0].mcq.map((que, i) => {
                         return <div key={i} className="my-3 col-md-6">
                             <strong>{i + 1}. <p className="d-inline-block" dangerouslySetInnerHTML={createMarkup(que.question)}></p></strong>
+                            {que.image ? <div className="text-center mb-3">
+                                <img className="img-thumbnail" style={{ width: "200px" }} src={que.image} alt="" />
+                            </div> : null}
                             <div className="row">
                                 {que.options.map((opt, i) => {
                                     return <div key={i} className="col-sm-6 mb-2 pl-4"><strong>{banChar[i]}) </strong><p className="d-inline" dangerouslySetInnerHTML={createMarkup(opt)}></p></div>
