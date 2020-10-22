@@ -327,7 +327,6 @@ const PracticeFrom = () => {
                     return [...prevImg]
                 })
             };
-            // reader.readAsDataURL(inputImg.files[0]);
         }
     }
 

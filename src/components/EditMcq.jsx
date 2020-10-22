@@ -28,6 +28,9 @@ const PracticeFrom = () => {
         rightAnswer: "",
     }])
     document.title = "ChemGenie | " + formValue.title
+
+    //Question Image
+    const [queImg, setQueImg] = useState([]);
     useEffect(() => {
         let arr = [];
         const snap = db
@@ -255,6 +258,25 @@ const PracticeFrom = () => {
             });
     };
 
+    //show Image
+    function readURL(e) {
+        const inputImg = e.target.files[0];
+
+        var reader = new FileReader();
+        var url = reader.readAsDataURL(inputImg);
+        if (inputImg) {
+            optInput[queIndex].image = inputImg;
+            setOptInput(prevOpt => {
+                return [...prevOpt]
+            })
+            reader.onload = function (evt) {
+                queImg[queIndex] = reader.result;
+                setQueImg(prevImg => {
+                    return [...prevImg]
+                })
+            };
+        }
+    }
 
     return <>
         {isAlert ?
@@ -331,6 +353,20 @@ const PracticeFrom = () => {
                                 <label className="col-sm-2 col-form-label">Title</label>
                                 <div className="col-sm-10  col-md-6 col-md-6">
                                     <textarea placeholder="Question Title" name="quesTitle" className="form-control" onChange={evt => questionChange(evt, ind)} value={opts.question}></textarea>
+                                </div>
+                            </div>
+                            <div className="form-group row justify-content-md-center">
+                                <div className="text-center">
+                                    <img style={{ width: "200px" }} src={queImg[ind] ? queImg[ind] : opts.image} alt="" />
+                                </div>
+                            </div>
+                            <div className="form-group row justify-content-md-center">
+                                <label className="col-sm-2 col-form-label">Question Image</label>
+                                <div className="col-sm-10 col-md-6 col-md-6">
+                                    <div className="custom-file">
+                                        <input className="custom-file-input" accept="image/*" id="customFile" type="file" name="image" onChange={readURL} />
+                                        <label className="custom-file-label" htmlFor="customFile">Choose file</label>
+                                    </div>
                                 </div>
                             </div>
                             {opts.options.map((input, i) => {
