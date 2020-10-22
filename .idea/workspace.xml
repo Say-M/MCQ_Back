@@ -1,7 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="fbb8fffc-a7a9-4d1b-8811-52606ac7c056" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/EditMcq.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/EditMcq.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/PracticeForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/PracticeForm.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -11,6 +33,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="ProjectId" id="1j9phWBZk2eESeVkhUNT67XYlS2" />
   <component name="ProjectViewState">
@@ -67,37 +90,58 @@
       <workItem from="1603226281614" duration="160000" />
       <workItem from="1603226442570" duration="2000000" />
       <workItem from="1603280533338" duration="16000" />
-      <workItem from="1603384727999" duration="4016000" />
+      <workItem from="1603384727999" duration="4840000" />
+      <workItem from="1603400115071" duration="2143000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
     <state x="419" y="209" width="1081" height="738" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603226555623">
       <screen x="0" y="22" width="1920" height="1058" />
     </state>
     <state x="419" y="209" width="1081" height="738" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.22.1920.1058/1920.0.1920.1080@0.22.1920.1058" timestamp="1603226555623" />
-    <state x="744" y="295" width="432" height="488" key="FileChooserDialogImpl" timestamp="1603280545374">
+    <state x="744" y="295" width="432" height="488" key="FileChooserDialogImpl" timestamp="1603395136949">
       <screen x="0" y="22" width="1920" height="1058" />
     </state>
     <state x="744" y="295" width="432" height="488" key="FileChooserDialogImpl/0.22.1920.1058/1920.0.1920.1080@0.22.1920.1058" timestamp="1603280545374" />
-    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1603226664196">
+    <state x="744" y="295" key="FileChooserDialogImpl/0.22.1920.1058@0.22.1920.1058" timestamp="1603395136949" />
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom" timestamp="1603400990772">
       <screen x="0" y="22" width="1920" height="1058" />
     </state>
     <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.22.1920.1058/1920.0.1920.1080@0.22.1920.1058" timestamp="1603226664196" />
-    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1603226664196">
+    <state width="1899" height="271" key="GridCell.Tab.0.bottom/0.22.1920.1058@0.22.1920.1058" timestamp="1603400990772" />
+    <state width="1899" height="271" key="GridCell.Tab.0.center" timestamp="1603400990772">
       <screen x="0" y="22" width="1920" height="1058" />
     </state>
     <state width="1899" height="271" key="GridCell.Tab.0.center/0.22.1920.1058/1920.0.1920.1080@0.22.1920.1058" timestamp="1603226664196" />
-    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1603226664195">
+    <state width="1899" height="271" key="GridCell.Tab.0.center/0.22.1920.1058@0.22.1920.1058" timestamp="1603400990772" />
+    <state width="1899" height="271" key="GridCell.Tab.0.left" timestamp="1603400990771">
       <screen x="0" y="22" width="1920" height="1058" />
     </state>
     <state width="1899" height="271" key="GridCell.Tab.0.left/0.22.1920.1058/1920.0.1920.1080@0.22.1920.1058" timestamp="1603226664195" />
-    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1603226664196">
+    <state width="1899" height="271" key="GridCell.Tab.0.left/0.22.1920.1058@0.22.1920.1058" timestamp="1603400990771" />
+    <state width="1899" height="271" key="GridCell.Tab.0.right" timestamp="1603400990772">
       <screen x="0" y="22" width="1920" height="1058" />
     </state>
     <state width="1899" height="271" key="GridCell.Tab.0.right/0.22.1920.1058/1920.0.1920.1080@0.22.1920.1058" timestamp="1603226664196" />
+    <state width="1899" height="271" key="GridCell.Tab.0.right/0.22.1920.1058@0.22.1920.1058" timestamp="1603400990772" />
+    <state x="750" y="467" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603400902024">
+      <screen x="0" y="22" width="1920" height="1058" />
+    </state>
+    <state x="750" y="467" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.22.1920.1058@0.22.1920.1058" timestamp="1603400902024" />
   </component>
 </project>
