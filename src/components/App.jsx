@@ -9,6 +9,7 @@ import LearnForm from './LearnForm';
 import University from './University';
 import Mcq from './Mcq';
 import EditMcq from './EditMcq';
+import editLearn from './editLearn';
 
 function App() {
   return <>
@@ -22,6 +23,7 @@ function App() {
       <Route exact path="/university/add_university" component={UniversityForm} />
       <Route exact path="/mcq/:id" component={Mcq} />
       <Route exact path="/edit_mcq/:id" component={EditMcq} />
+      <Route exact path="/edit_learn/:id" component={editLearn} />
       <Redirect to={"/mcq_lists"} />
     </Switch>
   </>
