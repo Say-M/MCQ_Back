@@ -96,10 +96,21 @@ const UniversityForm = () => {
                             });
                         })
                         .catch(() => {
-                            // showAlert("University Addition Failed. Try again");
+                            setAlertText("University Addition Failed. Try again");
+                            setTimeout(() => {
+                                setAlert(false);
+                                setAlertClass("");
+                                setAlertText("");
+                            }, 3000)
                         });
                 } else {
-                    // showAlert("University Addition Failed. Try again");
+                    setAlertClass("alert alert-danger alert-dismissible fade show");
+                    setAlertText("University Addition Failed. Try again");
+                    setTimeout(() => {
+                        setAlert(false);
+                        setAlertClass("");
+                        setAlertText("");
+                    }, 3000)
                 }
             });
         } else {
