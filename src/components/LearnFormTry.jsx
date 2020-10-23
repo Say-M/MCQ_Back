@@ -4,12 +4,12 @@ import CustomSelect from "./CustomSelect"
 import Spinner from "./Spinner";
 import Alert from "./Alert";
 
-const LearnForm = () => {
+const LearnFormTry = () => {
     //Alert
     const [isAlert, setAlert] = useState(false);
     const [alertClass, setAlertClass] = useState("");
     const [alertText, setAlertText] = useState("")
-    document.title = "ChemGenie | Add files or videos"
+    document.title = "ChemGenie Try | Add files or videos"
     //Spinner
     const [Spin, setSpin] = useState(false);
     //Chapter
@@ -125,15 +125,6 @@ const LearnForm = () => {
         setProgressBar(Object.assign({}, progressBar, data));
     };
 
-    const collection_name = "learn";
-    const videoDataUploadTask = async (data) => {
-        const res = await db.collection(collection_name).doc().set(data);
-        return res;
-    };
-    const fileDataUploadTask = async (data) => {
-        const res = await db.collection(collection_name).doc().set(data);
-        return res;
-    };
 
     const fileUploadTaskToStorage = async (file, callback) => {
         const uploadRef = storage.ref("files").child(file?.name ?? null);
@@ -197,21 +188,27 @@ const LearnForm = () => {
         let allArray = fileInput;
         let videoArray = allArray.filter((a) => a.type === "Video");
         let futureUploadTask = allArray.filter((a) => a.type !== "Video");
-        const document = db.collection("learn").doc();
+        const document = db.collection("Learn").doc();
         const id = document.id;
         data.id = id;
         let videoDoc = 0;
         let pdfDoc = 0;
         let queDoc = 0;
+        const video = [];
+        const lecture = [];
+        const question = [];
 
         const processUpdate = () => {
             progress += 1;
             updateProgressBar({ percent: (progress * 100) / total, show: true });
             document
                 .update({
-                    video: videoDoc,
-                    pdf: pdfDoc,
-                    que: queDoc,
+                    total_video: videoDoc,
+                    total_pdf: pdfDoc,
+                    total_question: queDoc,
+                    videos: video,
+                    lectures: lecture,
+                    questions: question
                 })
                 .then(() => {
                     setFormValue({
@@ -240,38 +237,41 @@ const LearnForm = () => {
             .then(() => {
                 videoArray.forEach((v) => {
                     setSpin(true)
-                    videoDataUploadTask({
-                        id: id,
+                    video.push({
                         type: v.type,
                         size: v.size,
                         url: v.url,
                         title: v.title,
                         time: v.timeCondition
-                    }).then((res) => {
-                        videoDoc += 1;
-                        processUpdate();
-                    });
+                    })
+                    videoDoc += 1;
+
+                    processUpdate();
                 });
                 futureUploadTask.forEach((f) => {
 
                     setSpin(true)
                     fileUploadTaskToStorage(f.file, (result) => {
                         if (result) {
-                            fileDataUploadTask({
-                                id: id,
-                                type: f.type,
-                                size: f?.file?.size,
-                                url: result,
-                                title: f.title,
-                            }).then((res) => {
-                                if (f.type === "Lecture") {
-                                    pdfDoc += 1;
-                                } else {
-                                    queDoc += 1;
-                                }
+                            if (f.type === "Lecture") {
+                                lecture.push({
+                                    type: f.type,
+                                    size: f?.file?.size,
+                                    url: result,
+                                    title: f.title,
+                                })
+                                pdfDoc += 1;
+                            } else {
+                                question.push({
+                                    type: f.type,
+                                    size: f?.file?.size,
+                                    url: result,
+                                    title: f.title,
+                                })
+                                queDoc += 1;
+                            }
 
-                                processUpdate();
-                            });
+                            processUpdate();
                         } else {
                             processUpdate();
                         }
@@ -390,7 +390,7 @@ const LearnForm = () => {
                                     </div>
                                 </div>
                                 <div className="form-group row justify-content-md-center">
-                                    <label className="col-sm-2 col-form-label">University</label>
+                                    <label className="col-sm-2 col-form-label">Sizegit a</label>
                                     <div className="col-md-4">
                                         <input type="number" placeholder="Size" name="size" value={file.size} className="form-control" onChange={evt => fileChange(evt, ind)} />
                                     </div>
@@ -420,4 +420,4 @@ const LearnForm = () => {
     </>
 }
 
-export default LearnForm;
+export default LearnFormTry;

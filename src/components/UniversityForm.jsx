@@ -153,8 +153,8 @@ const UniversityForm = () => {
                     <label className="col-sm-2 col-form-label">University Image</label>
                     <div className="col-sm-10 col-md-6">
                         <div className="custom-file">
-                            <input className="custom-file-input" accept="image/*" id="customFile" type="file" name="image" onChange={handleChange} value="" />
-                            <label className="custom-file-label" htmlFor="customFile">Choose file</label>
+                            <input className="custom-file-input" accept="image/*" id="customFile" type="file" name="image" onChange={handleChange} />
+                            <label style={{ overflow: "hidden" }} className="custom-file-label" htmlFor="customFile">{formValue.image.name ? formValue.image.name : "Choose file"}</label>
                         </div>
                     </div>
                 </div>

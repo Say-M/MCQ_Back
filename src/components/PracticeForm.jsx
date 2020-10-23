@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { v4 as uuid4 } from 'uuid';
 import db, { storage } from "./firebase_config";
 import Input from "./Input"
 import CustomSelect from "./CustomSelect"
@@ -268,11 +269,14 @@ const PracticeFrom = () => {
     };
     const fileUploadTaskToStorage = async (file, callback) => {
 
-        if (file == "") {
+        if (file === "") {
             callback(1)
         }
         else {
-            const uploadRef = storage.ref("logo").child(file.name ?? null);
+            const file_extension = file.name.split('.').pop();
+            const new_file_name = uuid4()+ "." +file_extension
+            console.log(new_file_name)
+            const uploadRef = storage.ref("logo").child(new_file_name);
             const uploadTask = uploadRef.put(file);
             uploadTask.on(
                 "state_changed",
@@ -315,7 +319,6 @@ const PracticeFrom = () => {
         const inputImg = e.target.files[0];
 
         var reader = new FileReader();
-        var url = reader.readAsDataURL(inputImg);
         if (inputImg) {
             optInput[queIndex].image = inputImg;
             setOptInput(prevOpt => {
@@ -327,7 +330,6 @@ const PracticeFrom = () => {
                     return [...prevImg]
                 })
             };
-            // reader.readAsDataURL(inputImg.files[0]);
         }
     }
 
@@ -418,7 +420,7 @@ const PracticeFrom = () => {
                                 <div className="col-sm-10 col-md-6 col-md-6">
                                     <div className="custom-file">
                                         <input className="custom-file-input" accept="image/*" id="customFile" type="file" name="image" onChange={readURL} />
-                                        <label className="custom-file-label" htmlFor="customFile">Choose file</label>
+                                        <label style={{overflow: "hidden"}} className="custom-file-label" htmlFor="customFile">{opts.image.name ? opts.image.name : "Choose file"}</label>
                                     </div>
                                 </div>
                             </div>

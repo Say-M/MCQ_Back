@@ -19,6 +19,7 @@ const McqTable = () => {
     const [alertText, setAlertText] = useState("")
     document.title = "ChemGenie | All questions"
     useEffect(() => {
+        setSpin(true)
         let arr = [];
         const snap = db
             .collection("question")
@@ -29,6 +30,7 @@ const McqTable = () => {
                     arr.push(d.data());
                 });
                 setQuestions(arr);
+                setSpin(false)
             });
     }, [categoryValue.category]);
     useEffect(() => {
