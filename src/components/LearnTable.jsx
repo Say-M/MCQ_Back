@@ -53,21 +53,23 @@ const LearnTable = () => {
             .doc(id)
             .delete()
             .then(() => {
-                let arr = [];
+                let ids = [];
                 const snap = db
                     .collection("learn")
                     .where("root", "==", id)
                     .get()
                     .then((snap) => {
                         snap.forEach((d) => {
-                            arr.push(d.data());
+                            ids.push(d.data().id);
+                            console.log(d.data());
+                            console.log(d.id());
                         });
                     })
                     .then(() => {
-                        arr.forEach(docObj => {
-                            console.log(docObj);
+                        ids.forEach(ID => {
+                            console.log(ID);
                             const snap = db.collection("learn")
-                                .doc()
+                                .doc(ID)
                                 .set(null)
                                 .catch(err => console.log(err))
                         })
