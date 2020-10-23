@@ -269,7 +269,7 @@ const PracticeFrom = () => {
     };
     const fileUploadTaskToStorage = async (file, callback) => {
 
-        if (file == "") {
+        if (file === "") {
             callback(1)
         }
         else {
@@ -319,7 +319,6 @@ const PracticeFrom = () => {
         const inputImg = e.target.files[0];
 
         var reader = new FileReader();
-        var url = reader.readAsDataURL(inputImg);
         if (inputImg) {
             optInput[queIndex].image = inputImg;
             setOptInput(prevOpt => {
