@@ -59,21 +59,15 @@ const LearnTable = () => {
                     .where("root", "==", id)
                     .get()
                     .then((snap) => {
+                        //delete every document with root matched with id
                         snap.forEach((d) => {
-                            ids.push(d.data().id);
-                            console.log(d.data());
                             console.log(d.id());
-                        });
-                    })
-                    .then(() => {
-                        ids.forEach(ID => {
-                            console.log(ID);
                             const snap = db.collection("learn")
-                                .doc(ID)
+                                .doc(d.id())
                                 .set(null)
                                 .catch(err => console.log(err))
-                        })
-                    });
+                        });
+                    })
             })
             .then(() => {
                 setSpin(false);
