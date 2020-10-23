@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import db from "./firebase_config";
 import Spinner from "./Spinner";
 import Alert from "./Alert";
 
 const LearnTable = () => {
+    const { docId } = useParams();
     const [isSpin, setSpin] = useState(true)
     const [learn, setLearn] = useState([])
     const categroys = ["HSC", "Admission", "Olympaid"]
@@ -31,19 +32,7 @@ const LearnTable = () => {
                 setSpin(false)
             });
     }, [categoryValue.category]);
-    useState(() => {
-        let arr = [];
-        const snap = db
-            .collection("learn")
-            .where("root", "==", id)
-            .get()
-            .then((snap) => {
-                snap.forEach((d) => {
-                    arr.push(d.data());
-                });
-                console.log(arr);
-            });
-    }, [])
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setCategoryValue(prevValue => {
@@ -63,6 +52,27 @@ const LearnTable = () => {
             .collection("learn")
             .doc(id)
             .delete()
+            .then(() => {
+                let arr = [];
+                const snap = db
+                    .collection("learn")
+                    .where("root", "==", id)
+                    .get()
+                    .then((snap) => {
+                        snap.forEach((d) => {
+                            arr.push(d.data());
+                        });
+                    })
+                    .then(() => {
+                        arr.forEach(docObj => {
+                            console.log(docObj);
+                            const snap = db.collection("learn")
+                                .doc()
+                                .set(null)
+                                .catch(err => console.log(err))
+                        })
+                    });
+            })
             .then(() => {
                 setSpin(false);
                 setAlert(true);
@@ -95,6 +105,7 @@ const LearnTable = () => {
                     setAlertText("");
                     setAlertClass("");
                 }, 3000)
+                console.log(err);
             })
     }
     return <>
