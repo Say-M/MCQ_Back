@@ -241,7 +241,7 @@ const LearnForm = () => {
                 videoArray.forEach((v) => {
                     setSpin(true)
                     videoDataUploadTask({
-                        id: id,
+                        root: id,
                         type: v.type,
                         size: v.size,
                         url: v.url,
@@ -258,7 +258,7 @@ const LearnForm = () => {
                     fileUploadTaskToStorage(f.file, (result) => {
                         if (result) {
                             fileDataUploadTask({
-                                id: id,
+                                root: id,
                                 type: f.type,
                                 size: f?.file?.size,
                                 url: result,
@@ -390,7 +390,7 @@ const LearnForm = () => {
                                     </div>
                                 </div>
                                 <div className="form-group row justify-content-md-center">
-                                    <label className="col-sm-2 col-form-label">University</label>
+                                    <label className="col-sm-2 col-form-label">Size</label>
                                     <div className="col-md-4">
                                         <input type="number" placeholder="Size" name="size" value={file.size} className="form-control" onChange={evt => fileChange(evt, ind)} />
                                     </div>
