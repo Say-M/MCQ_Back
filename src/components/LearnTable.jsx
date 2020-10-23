@@ -10,7 +10,6 @@ const LearnTable = () => {
     const categroys = ["HSC", "Admission", "Olympaid"]
     const [categoryValue, setCategoryValue] = useState({
         category: "HSC",
-        university: "",
     });
     const [id, setId] = useState("")
     //Alert
@@ -29,20 +28,22 @@ const LearnTable = () => {
                     arr.push(d.data());
                 });
                 setLearn(arr);
+                setSpin(false)
             });
     }, [categoryValue.category]);
-    useEffect(() => {
+    useState(() => {
         let arr = [];
         const snap = db
-            .collection("university")
+            .collection("learn")
+            .where("root", "==", id)
             .get()
             .then((snap) => {
                 snap.forEach((d) => {
                     arr.push(d.data());
                 });
-                setSpin(false)
+                console.log(arr);
             });
-    }, []);
+    }, [])
     const handleChange = (e) => {
         const { name, value } = e.target;
         setCategoryValue(prevValue => {

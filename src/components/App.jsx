@@ -5,7 +5,7 @@ import LearnTable from './LearnTable';
 import { Switch, Route, Redirect } from "react-router-dom";
 import PracticeForm from './PracticeForm';
 import UniversityForm from './UniversityForm';
-import LearnFormTry from './LearnFormTry';
+import LearnForm from './LearnForm';
 import University from './University';
 import Mcq from './Mcq';
 import EditMcq from './EditMcq';
@@ -18,7 +18,7 @@ function App() {
       <Route exact path="/quetions/add_que" component={PracticeForm} />
       <Route exact path="/mcq_lists" component={McqTable} />
       <Route exact path="/learn" component={LearnTable} />
-      <Route exact path="/add_learn" component={LearnFormTry} />
+      <Route exact path="/add_learn" component={LearnForm} />
       <Route exact path="/university" component={University} />
       <Route exact path="/university/add_university" component={UniversityForm} />
       <Route exact path="/mcq/:id" component={Mcq} />
