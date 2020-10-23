@@ -48,33 +48,27 @@ const LearnTable = () => {
     }
     const clDelete = () => {
         setSpin(true);
-        const snap = db
+
+        // get all the documents with root matched with id
+        const snap = db.collection("learn")
+        .where("root", "==", id)
+        .get()
+        .then((snap) => {
+
+            //delete every document with root matched with id
+            snap.forEach((d) => {
+                console.log(d.id());
+                const snap = db.collection("learn")
+                .doc(d.id())
+                .set(null)
+                .catch(err => console.log(err))
+            });
+
+            //delete the info document
+            const snap = db
             .collection("learn")
             .doc(id)
             .delete()
-            .then(() => {
-                let ids = [];
-                const snap = db
-                    .collection("learn")
-                    .where("root", "==", id)
-                    .get()
-                    .then((snap) => {
-                        snap.forEach((d) => {
-                            ids.push(d.data().id);
-                            console.log(d.data());
-                            console.log(d.id());
-                        });
-                    })
-                    .then(() => {
-                        ids.forEach(ID => {
-                            console.log(ID);
-                            const snap = db.collection("learn")
-                                .doc(ID)
-                                .set(null)
-                                .catch(err => console.log(err))
-                        })
-                    });
-            })
             .then(() => {
                 setSpin(false);
                 setAlert(true);
@@ -108,7 +102,70 @@ const LearnTable = () => {
                     setAlertClass("");
                 }, 3000)
                 console.log(err);
-            })
+            });
+        });
+
+        // const snap = db
+        //     .collection("learn")
+        //     .doc(id)
+        //     .delete()
+        //     .then(() => {
+        //         let ids = [];
+        //         const snap = db
+        //             .collection("learn")
+        //             .where("root", "==", id)
+        //             .get()
+        //             .then((snap) => {
+        //                 snap.forEach((d) => {
+        //                     ids.push(d.data().id);
+        //                     console.log(d.data());
+        //                     console.log(d.id());
+        //                 });
+        //             })
+        //             .then(() => {
+        //                 ids.forEach(ID => {
+        //                     console.log(ID);
+        //                     const snap = db.collection("learn")
+        //                         .doc(ID)
+        //                         .set(null)
+        //                         .catch(err => console.log(err))
+        //                 })
+        //             });
+        //     })
+        //     .then(() => {
+        //         setSpin(false);
+        //         setAlert(true);
+        //         setAlertText("Your document is successfully deleted");
+        //         setAlertClass("alert alert-success");
+        //         setTimeout(() => {
+        //             setAlert(false);
+        //             setAlertText("");
+        //             setAlertClass("");
+        //         }, 3000)
+        //         let arr = [];
+        //         const snap = db
+        //             .collection("learn")
+        //             .where("category", "==", categoryValue.category)
+        //             .get()
+        //             .then((snap) => {
+        //                 snap.forEach((d) => {
+        //                     arr.push(d.data());
+        //                 });
+        //                 setLearn(arr);
+        //             });
+        //     })
+        //     .catch((err) => {
+        //         setSpin(false);
+        //         setAlert(true);
+        //         setAlertText("Sorry something went wrong. Please Try again");
+        //         setAlertClass("alert alert-danger");
+        //         setTimeout(() => {
+        //             setAlert(false);
+        //             setAlertText("");
+        //             setAlertClass("");
+        //         }, 3000)
+        //         console.log(err);
+        //     })
     }
     return <>
         <div className="container table-item">
