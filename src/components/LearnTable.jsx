@@ -59,7 +59,7 @@ const LearnTable = () => {
             snap.forEach((d) => {
                 console.log(d.id);
                 const snap = db.collection("learn")
-                .doc(d.id())
+                .doc(d.id)
                 .set(null)
                 .catch(err => console.log(err))
             });
