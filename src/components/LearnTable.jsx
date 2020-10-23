@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import db from "./firebase_config";
 import Spinner from "./Spinner";
 import Alert from "./Alert";
 
 const LearnTable = () => {
-    const { docId } = useParams();
     const [isSpin, setSpin] = useState(true)
     const [learn, setLearn] = useState([])
     const categroys = ["HSC", "Admission", "Olympaid"]
@@ -20,7 +19,7 @@ const LearnTable = () => {
     document.title = "ChemGenie | All chapters"
     useEffect(() => {
         let arr = [];
-        const snap = db
+        db
             .collection("learn")
             .where("category", "==", categoryValue.category)
             .get()
@@ -48,61 +47,74 @@ const LearnTable = () => {
     }
     const clDelete = () => {
         setSpin(true);
-        const snap = db
-            .collection("learn")
-            .doc(id)
-            .delete()
-            .then(() => {
-                let ids = [];
-                const snap = db
-                    .collection("learn")
-                    .where("root", "==", id)
-                    .get()
-                    .then((snap) => {
-                        //delete every document with root matched with id
-                        snap.forEach((d) => {
-                            console.log(d.id());
-                            const snap = db.collection("learn")
-                                .doc(d.id())
-                                .set(null)
-                                .catch(err => console.log(err))
-                        });
+
+        // get all the documents with root matched with id
+        db.collection("learn")
+            .where("root", "==", id)
+            .get()
+            .then((snapShot) => {
+
+                //delete every document with root matched with id
+                snapShot.forEach((d) => {
+                    db.collection("learn")
+                        .doc(d.id)
+                        .delete()
+                        .catch(err => console.log(err))
+                });
+
+                //delete the info document
+                db.collection("learn")
+                    .doc(id)
+                    .delete()
+                    .then(() => {
+                        db.collection("learn")
+                            .where("root", "==", id)
+                            .get()
+                            .then((snap) => {
+                                //delete every document with root matched with id
+                                snap.forEach((d) => {
+                                    db.collection("learn")
+                                        .doc(d.id())
+                                        .set(null)
+                                        .catch(err => console.log(err))
+                                });
+                            })
                     })
-            })
-            .then(() => {
-                setSpin(false);
-                setAlert(true);
-                setAlertText("Your document is successfully deleted");
-                setAlertClass("alert alert-success");
-                setTimeout(() => {
-                    setAlert(false);
-                    setAlertText("");
-                    setAlertClass("");
-                }, 3000)
-                let arr = [];
-                const snap = db
-                    .collection("learn")
-                    .where("category", "==", categoryValue.category)
-                    .get()
-                    .then((snap) => {
-                        snap.forEach((d) => {
-                            arr.push(d.data());
-                        });
-                        setLearn(arr);
+                    .then(() => {
+                        setSpin(false);
+                        setAlert(true);
+                        setAlertText("Your document is successfully deleted");
+                        setAlertClass("alert alert-success");
+                        setTimeout(() => {
+                            setAlert(false);
+                            setAlertText("");
+                            setAlertClass("");
+                        }, 3000)
+                        let arr = [];
+                        db
+                            .collection("learn")
+                            .where("category", "==", categoryValue.category)
+                            .get()
+                            .then((snap) => {
+                                snap.forEach((d) => {
+                                    arr.push(d.data());
+                                });
+                                setLearn(arr);
+                            });
+                    })
+                    .catch((err) => {
+                        setSpin(false);
+                        setAlert(true);
+                        setAlertText("Sorry something went wrong. Please Try again");
+                        setAlertClass("alert alert-danger");
+                        setTimeout(() => {
+                            setAlert(false);
+                            setAlertText("");
+                            setAlertClass("");
+                        }, 3000)
+                        console.log(err);
                     });
-            })
-            .catch((err) => {
-                setSpin(false);
-                setAlert(true);
-                setAlertText("Sorry something went wrong. Please Try again");
-                setAlertClass("alert alert-danger");
-                setTimeout(() => {
-                    setAlert(false);
-                    setAlertText("");
-                    setAlertClass("");
-                }, 3000)
-                console.log(err);
-            })
+            });
     }
     return <>
         <div className="container table-item">

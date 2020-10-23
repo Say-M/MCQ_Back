@@ -26,15 +26,7 @@ const LearnForm = () => {
         university: "",
     });
 
-    const [fileInput, setFileInput] = useState([{
-        title: "",
-        type: "",
-        file: "",
-        url: "",
-        size: "",
-        timeCondition: "",
-        isVideo: null,
-    }])
+    const [fileInput, setFileInput] = useState([])
     useEffect(() => {
         let arr = [];
         const snap = db
@@ -45,10 +37,16 @@ const LearnForm = () => {
                 snap.forEach((d) => {
                     arr.push(d.data());
                 });
-                setFormValue(arr[0]);
-                console.log(arr);
-                setFileInput([arr[1]]);
-            });
+                setFormValue(...arr)
+                db
+                    .collection("learn")
+                    .where("root", "==", arr[0].id)
+                    .get()
+                    .then((snap) => {
+                        snap.forEach(d => setFileInput(prevFile => [...prevFile, d.data()]))
+                    })
+            })
+
     }, []);
     let isAdmission = false;
     const [learn, setLearn] = useState(true);
@@ -97,7 +95,6 @@ const LearnForm = () => {
             }
         })
     }
-
     if (formValue.category === "Admission") {
         isAdmission = true
     } else {
@@ -133,11 +130,11 @@ const LearnForm = () => {
 
     const collection_name = "learn";
     const videoDataUploadTask = async (data) => {
-        const res = await db.collection(collection_name).doc(id).update(data);
+        const res = await db.collection(collection_name).doc().set(data);
         return res;
     };
     const fileDataUploadTask = async (data) => {
-        const res = await db.collection(collection_name).doc(id).update(data);
+        const res = await db.collection(collection_name).doc().set(data);
         return res;
     };
 
@@ -218,43 +215,53 @@ const LearnForm = () => {
                     que: queDoc,
                 })
                 .then(() => {
-                    setFormValue({
-                        chapter: "",
-                        category: "",
-                        university: "",
-                    });
-                    setFileInput([{
-                        title: "",
-                        type: "",
-                        file: "",
-                        url: "",
-                        size: "",
-                        timeCondition: "",
-                        isVideo: null,
-                    }]);
                     updateProgressBar({ show: false, percent: 0 });
                     setLearn(true);
                     setFileIndex(0)
                     setSpin(false)
-                });
+                }).catch(err => console.log(err))
         };
 
         document
             .update(data)
             .then(() => {
                 videoArray.forEach((v) => {
+                    console.log(v);
                     setSpin(true)
-                    videoDataUploadTask({
-                        id: id,
-                        type: v.type,
-                        size: v.size,
-                        url: v.url,
-                        title: v.title,
-                        time: v.timeCondition
-                    }).then((res) => {
-                        videoDoc += 1;
-                        processUpdate();
-                    });
+                    fileInput.forEach(file => {
+                        if (v.root !== file.root) {
+                            videoDataUploadTask({
+                                root: file.root,
+                                type: v.type,
+                                size: v.size,
+                                url: v.url,
+                                title: v.title,
+                                time: v.timeCondition
+                            }).then((res) => {
+                                videoDoc += 1;
+                                processUpdate();
+                            });
+                        } else {
+                            db.collection("learn")
+                                .where("root", "==", file.root)
+                                .get()
+                                .then(snap => {
+                                    snap.forEach(d => {
+                                        console.log(d.id);
+                                        db.collection("learn")
+                                            .doc(d.id)
+                                            .update({
+                                                root: v.root,
+                                                size: v.size,
+                                                time: v.time,
+                                                title: v.title,
+                                                type: v.type,
+                                                url: v.url
+                                            })
+                                    })
+                                })
+                        }
+                    })
                 });
                 futureUploadTask.forEach((f) => {
 
@@ -262,7 +269,6 @@ const LearnForm = () => {
                     fileUploadTaskToStorage(f.file, (result) => {
                         if (result) {
                             fileDataUploadTask({
-                                id: id,
                                 type: f.type,
                                 size: f?.file?.size,
                                 url: result,
@@ -283,7 +289,6 @@ const LearnForm = () => {
                 });
             })
             .catch((err) => {
-                // showAlert("Error Occured in uploading....");
                 console.log(err);
                 updateProgressBar({ show: false, percent: 0 });
             });
