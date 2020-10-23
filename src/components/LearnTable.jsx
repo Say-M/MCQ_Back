@@ -57,7 +57,7 @@ const LearnTable = () => {
 
             //delete every document with root matched with id
             snap.forEach((d) => {
-                console.log(d.id());
+                console.log(d.id);
                 const snap = db.collection("learn")
                 .doc(d.id())
                 .set(null)
