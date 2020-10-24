@@ -123,6 +123,9 @@ const McqTable = () => {
                 })
             })
         }
+        else{
+            deleteDocument()
+        }
 
     }
     return <>

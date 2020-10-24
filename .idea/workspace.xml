@@ -19,10 +19,9 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fbb8fffc-a7a9-4d1b-8811-52606ac7c056" name="Default Changelist" comment="delete practice image data">
+    <list default="true" id="fbb8fffc-a7a9-4d1b-8811-52606ac7c056" name="Default Changelist" comment="learn file folder separation">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LearnForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LearnForm.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/LearnTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LearnTable.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/McqTable.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/McqTable.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +90,7 @@
       <workItem from="1603384727999" duration="4840000" />
       <workItem from="1603400115071" duration="2773000" />
       <workItem from="1603465686580" duration="620000" />
-      <workItem from="1603561755172" duration="3982000" />
+      <workItem from="1603561755172" duration="5055000" />
     </task>
     <task id="LOCAL-00001" summary="edit que image add">
       <created>1603402440776</created>
@@ -107,7 +106,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603568117686</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="learn file folder separation">
+      <created>1603568964659</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1603568964659</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -128,7 +134,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="edit que image add" />
     <MESSAGE value="delete practice image data" />
-    <option name="LAST_COMMIT_MESSAGE" value="delete practice image data" />
+    <MESSAGE value="learn file folder separation" />
+    <option name="LAST_COMMIT_MESSAGE" value="learn file folder separation" />
   </component>
   <component name="WindowStateProjectService">
     <state x="419" y="209" width="1081" height="738" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1603226555623">
@@ -160,10 +167,10 @@
     </state>
     <state width="1899" height="271" key="GridCell.Tab.0.right/0.22.1920.1058/1920.0.1920.1080@0.22.1920.1058" timestamp="1603226664196" />
     <state width="1899" height="271" key="GridCell.Tab.0.right/0.22.1920.1058@0.22.1920.1058" timestamp="1603561899050" />
-    <state x="556" y="283" key="Vcs.Push.Dialog.v2" timestamp="1603568123599">
+    <state x="556" y="283" key="Vcs.Push.Dialog.v2" timestamp="1603572127896">
       <screen x="0" y="22" width="1920" height="1058" />
     </state>
-    <state x="556" y="283" key="Vcs.Push.Dialog.v2/0.22.1920.1058@0.22.1920.1058" timestamp="1603568123599" />
+    <state x="556" y="283" key="Vcs.Push.Dialog.v2/0.22.1920.1058@0.22.1920.1058" timestamp="1603572127896" />
     <state x="750" y="467" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603561761672">
       <screen x="0" y="22" width="1920" height="1058" />
     </state>
