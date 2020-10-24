@@ -46,6 +46,7 @@ const LearnTable = () => {
         e.preventDefault()
         setId(e.target.id);
         setDeleteLearn(dLearn);
+
     }
 
     const deleteDocument = ()=>{
@@ -129,7 +130,9 @@ const LearnTable = () => {
     const clDelete = () => {
         setSpin(true);
         const dLearn = {...deleteLearn}
-        console.log(dLearn)
+        // console.log(dLearn)
+        const totalFile = dLearn.pdf + dLearn.que;
+        console.log(totalFile);
         // get all the documents with root matched with id
 
     }

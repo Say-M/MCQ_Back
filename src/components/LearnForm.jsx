@@ -135,8 +135,8 @@ const LearnForm = () => {
         return res;
     };
 
-    const fileUploadTaskToStorage = async (file, callback) => {
-        const uploadRef = storage.ref("files").child(file?.name ?? null);
+    const fileUploadTaskToStorage = async (file, path, callback) => {
+        const uploadRef = storage.ref(path).child(file?.name ?? null);
         const uploadTask = uploadRef.put(file);
         uploadTask.on(
             "state_changed",
@@ -255,7 +255,7 @@ const LearnForm = () => {
                 futureUploadTask.forEach((f) => {
 
                     setSpin(true)
-                    fileUploadTaskToStorage(f.file, (result) => {
+                    fileUploadTaskToStorage(f.file, f.type, (result) => {
                         if (result) {
                             fileDataUploadTask({
                                 root: id,
