@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import db from "./firebase_config";
+import db, {storage} from "./firebase_config";
 import Spinner from "./Spinner";
 import Alert from "./Alert";
 
@@ -13,6 +13,7 @@ const McqTable = () => {
         university: "",
     });
     const [id, setId] = useState("")
+    const [deleteQuestion, setdeleteQuestion] = useState({})
     //Alert
     const [isAlert, setAlert] = useState(false);
     const [alertClass, setAlertClass] = useState("");
@@ -54,12 +55,13 @@ const McqTable = () => {
             }
         })
     }
-    const getId = (e) => {
+    const getId = (que)=> (e) => {
         e.preventDefault()
         setId(e.target.id);
+        setdeleteQuestion(que)
     }
-    const clDelete = () => {
-        setSpin(true);
+
+    const deleteDocument = ()=>{
         const snap = db
             .collection("question")
             .doc(id)
@@ -98,6 +100,31 @@ const McqTable = () => {
                 }, 3000)
             })
     }
+
+    const fileDeleteTask = async (url)=>{
+        const imageRef = storage.refFromURL(url);
+        imageRef.delete().then(()=>{
+            return true
+        }).catch((e)=>{
+            return false
+        })
+    }
+
+    const clDelete = () => {
+        setSpin(true);
+        const mcq = deleteQuestion.mcq;
+        const imageFilesList = mcq.filter(q=> q.image && q.image !== "");
+        if(imageFilesList.length){
+            imageFilesList.forEach((f,index)=>{
+                fileDeleteTask(f.image).then(success=>{
+                    if(index >= imageFilesList.length - 1){
+                        deleteDocument()
+                    }
+                })
+            })
+        }
+
+    }
     return <>
         <div className="container table-item">
             {isSpin ? <Spinner /> : null}
@@ -132,7 +159,7 @@ const McqTable = () => {
                                 <td>{question.pass}</td>
                                 <td><NavLink className="btn-primary d-inline-block btn btn-sm" to={"mcq/" + question.id}><i className="fas fa-eye"></i></NavLink>
                                     <NavLink className="ml-2 d-inline-block btn-info btn btn-sm" to={"edit_mcq/" + question.id}><i className="fas fa-edit"></i></NavLink>
-                                    <NavLink className="ml-2 d-inline-block btn btn-danger btn-sm" id={question.id} data-toggle="modal" data-target="#delete" onClick={getId} to="#"><i id={question.id} className="fas fa-trash"></i></NavLink></td></tr>)}
+                                    <NavLink className="ml-2 d-inline-block btn btn-danger btn-sm" id={question.id} data-toggle="modal" data-target="#delete" onClick={getId(question)} to="#"><i id={question.id} className="fas fa-trash"></i></NavLink></td></tr>)}
                         </tbody>
                     </table>
                 </div></>}

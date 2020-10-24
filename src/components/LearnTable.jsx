@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import db from "./firebase_config";
+import db, {storage} from "./firebase_config";
 import Spinner from "./Spinner";
 import Alert from "./Alert";
 
@@ -12,6 +12,7 @@ const LearnTable = () => {
         category: "HSC",
     });
     const [id, setId] = useState("")
+    const [deleteLearn, setDeleteLearn] = useState({})
     //Alert
     const [isAlert, setAlert] = useState(false);
     const [alertClass, setAlertClass] = useState("");
@@ -41,14 +42,13 @@ const LearnTable = () => {
             }
         })
     }
-    const getId = (e) => {
+    const getId = (dLearn)=> (e) => {
         e.preventDefault()
         setId(e.target.id);
+        setDeleteLearn(dLearn);
     }
-    const clDelete = () => {
-        setSpin(true);
 
-        // get all the documents with root matched with id
+    const deleteDocument = ()=>{
         db.collection("learn")
             .where("root", "==", id)
             .get()
@@ -116,6 +116,23 @@ const LearnTable = () => {
                     });
             });
     }
+    const fileDeleteTask = async (url)=>{
+        const imageRef = storage.refFromURL(url);
+        imageRef.delete().then(()=>{
+            return true
+        }).catch((e)=>{
+            return false
+        })
+    }
+
+
+    const clDelete = () => {
+        setSpin(true);
+        const dLearn = {...deleteLearn}
+        console.log(dLearn)
+        // get all the documents with root matched with id
+
+    }
     return <>
         <div className="container table-item">
             {isSpin ? <Spinner /> : null}
@@ -152,7 +169,7 @@ const LearnTable = () => {
                                 <td>{lrn.que}</td>
                                 <td><NavLink className="btn-primary d-inline-block btn btn-sm" to={"view_learn/" + lrn.id}><i className="fas fa-eye"></i></NavLink>
                                     <NavLink className="ml-2 d-inline-block btn-info btn btn-sm" to={"edit_learn/" + lrn.id}><i className="fas fa-edit"></i></NavLink>
-                                    <NavLink className="ml-2 d-inline-block btn btn-danger btn-sm" id={lrn.id} data-toggle="modal" data-target="#delete" onClick={getId} to="#"><i id={lrn.id} className="fas fa-trash"></i></NavLink></td></tr>)}
+                                    <NavLink className="ml-2 d-inline-block btn btn-danger btn-sm" id={lrn.id} data-toggle="modal" data-target="#delete" onClick={getId(lrn)} to="#"><i id={lrn.id} className="fas fa-trash"></i></NavLink></td></tr>)}
                         </tbody>
                     </table>
                 </div></>}

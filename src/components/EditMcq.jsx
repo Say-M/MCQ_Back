@@ -298,7 +298,7 @@ const PracticeFrom = () => {
         else {
             const file_extension = file.name.split('.').pop();
             const new_file_name = uuid4()+ "." + file_extension;
-            const uploadRef = storage.ref("logo").child(new_file_name);
+            const uploadRef = storage.ref("files").child(new_file_name);
             const uploadTask = uploadRef.put(file);
             uploadTask.on(
                 "state_changed",
