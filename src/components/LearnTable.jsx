@@ -42,10 +42,9 @@ const LearnTable = () => {
             }
         })
     }
-    const getId = (dLearn)=> (e) => {
+    const getId = (e) => {
         e.preventDefault()
         setId(e.target.id);
-        setDeleteLearn(dLearn);
 
     }
 
@@ -66,7 +65,7 @@ const LearnTable = () => {
                 //delete the info document
                 db.collection("learn")
                     .doc(id)
-                    .delete()
+                    .get()
                     .then(() => {
                         db.collection("learn")
                             .where("root", "==", id)
@@ -74,10 +73,12 @@ const LearnTable = () => {
                             .then((snap) => {
                                 //delete every document with root matched with id
                                 snap.forEach((d) => {
-                                    db.collection("learn")
-                                        .doc(d.id())
-                                        .set(null)
-                                        .catch(err => console.log(err))
+                                    console.log("hello")
+                                    console.log(d.data())
+                                    // db.collection("learn")
+                                    //     .doc(d.id())
+                                    //     .set(null)
+                                    //     .catch(err => console.log(err))
                                 });
                             })
                     })
@@ -117,6 +118,42 @@ const LearnTable = () => {
                     });
             });
     }
+
+    const afterDeleteOperation = ()=>{
+        setSpin(false);
+        setAlert(true);
+        setAlertText("Your document is successfully deleted");
+        setAlertClass("alert alert-success");
+        setTimeout(() => {
+            setAlert(false);
+            setAlertText("");
+            setAlertClass("");
+        }, 3000)
+        let arr = [];
+        db
+            .collection("learn")
+            .where("category", "==", categoryValue.category)
+            .get()
+            .then((snap) => {
+                snap.forEach((d) => {
+                    arr.push(d.data());
+                });
+                setLearn(arr);
+            })
+.catch((err) => {
+    setSpin(false);
+    setAlert(true);
+    setAlertText("Sorry something went wrong. Please Try again");
+    setAlertClass("alert alert-danger");
+    setTimeout(() => {
+        setAlert(false);
+        setAlertText("");
+        setAlertClass("");
+    }, 3000)
+    console.log(err);
+});
+    }
+
     const fileDeleteTask = async (url)=>{
         const imageRef = storage.refFromURL(url);
         imageRef.delete().then(()=>{
@@ -127,13 +164,22 @@ const LearnTable = () => {
     }
 
 
-    const clDelete = () => {
+    const clDelete = async (e) => {
+        e.preventDefault();
         setSpin(true);
-        const dLearn = {...deleteLearn}
-        // console.log(dLearn)
-        const totalFile = dLearn.pdf + dLearn.que;
-        console.log(totalFile);
-        // get all the documents with root matched with id
+        const learnId = id;
+        console.log(learnId);
+        const snapshot = await db.collection("learn").where('root', '==', learnId).get()
+
+        if(!snapshot.empty){
+            snapshot.forEach((doc)=>{
+                console.log(doc.data())
+            })
+        }
+        else{
+            console.log("Empty")
+            // afterDeleteOperation()
+        }
 
     }
     return <>
@@ -172,7 +218,7 @@ const LearnTable = () => {
                                 <td>{lrn.que}</td>
                                 <td><NavLink className="btn-primary d-inline-block btn btn-sm" to={"view_learn/" + lrn.id}><i className="fas fa-eye"></i></NavLink>
                                     <NavLink className="ml-2 d-inline-block btn-info btn btn-sm" to={"edit_learn/" + lrn.id}><i className="fas fa-edit"></i></NavLink>
-                                    <NavLink className="ml-2 d-inline-block btn btn-danger btn-sm" id={lrn.id} data-toggle="modal" data-target="#delete" onClick={getId(lrn)} to="#"><i id={lrn.id} className="fas fa-trash"></i></NavLink></td></tr>)}
+                                    <NavLink className="ml-2 d-inline-block btn btn-danger btn-sm" id={lrn.id} data-toggle="modal" data-target="#delete" onClick={getId} to="#"><i id={lrn.id} className="fas fa-trash"></i></NavLink></td></tr>)}
                         </tbody>
                     </table>
                 </div></>}
