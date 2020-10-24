@@ -274,7 +274,7 @@ const PracticeFrom = () => {
         }
         else {
             const file_extension = file.name.split('.').pop();
-            const new_file_name = uuid4()+ "." +file_extension
+            const new_file_name = uuid4() + "." + file_extension
             console.log(new_file_name)
             const uploadRef = storage.ref("logo").child(new_file_name);
             const uploadTask = uploadRef.put(file);
@@ -319,6 +319,7 @@ const PracticeFrom = () => {
         const inputImg = e.target.files[0];
 
         var reader = new FileReader();
+        var url = reader.readAsDataURL(inputImg);
         if (inputImg) {
             optInput[queIndex].image = inputImg;
             setOptInput(prevOpt => {
@@ -337,7 +338,7 @@ const PracticeFrom = () => {
         {isAlert ?
             <Alert alClass={alertClass} text={alertText} /> : null}
         {isSpin ? <Spinner /> : null}
-        {addQuestion ?
+        {!addQuestion ?
             <form className="form" onSubmit={handleSubmit}>
                 <div className="container">
                     <h3 className="text-center">Add New Question Set</h3>
@@ -420,7 +421,7 @@ const PracticeFrom = () => {
                                 <div className="col-sm-10 col-md-6 col-md-6">
                                     <div className="custom-file">
                                         <input className="custom-file-input" accept="image/*" id="customFile" type="file" name="image" onChange={readURL} />
-                                        <label style={{overflow: "hidden"}} className="custom-file-label" htmlFor="customFile">{opts.image.name ? opts.image.name : "Choose file"}</label>
+                                        <label style={{ overflow: "hidden" }} className="custom-file-label" htmlFor="customFile">{opts.image.name ? opts.image.name : "Choose file"}</label>
                                     </div>
                                 </div>
                             </div>

@@ -150,7 +150,7 @@ const LearnTable = () => {
                                 <td>{lrn.pdf}</td>
                                 <td>{lrn.video}</td>
                                 <td>{lrn.que}</td>
-                                <td><NavLink className="btn-primary d-inline-block btn btn-sm" to={"mcq/" + lrn.id}><i className="fas fa-eye"></i></NavLink>
+                                <td><NavLink className="btn-primary d-inline-block btn btn-sm" to={"view_learn/" + lrn.id}><i className="fas fa-eye"></i></NavLink>
                                     <NavLink className="ml-2 d-inline-block btn-info btn btn-sm" to={"edit_learn/" + lrn.id}><i className="fas fa-edit"></i></NavLink>
                                     <NavLink className="ml-2 d-inline-block btn btn-danger btn-sm" id={lrn.id} data-toggle="modal" data-target="#delete" onClick={getId} to="#"><i id={lrn.id} className="fas fa-trash"></i></NavLink></td></tr>)}
                         </tbody>

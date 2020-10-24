@@ -28,8 +28,7 @@ const Mcq = () => {
     }, []);
     return <>
         <div className="container mb-5">
-            {isSpin ? <Spinner /> : null}
-            {isSpin ? null : <><h2 className="text-center mt-3">{questions[0].category}</h2>
+            {isSpin ? <Spinner /> : <><h2 className="text-center mt-3">{questions[0].category}</h2>
                 <h3 className="text-center mb-3">{questions[0].title}</h3>
                 {questions[0].category === "Admission" ? <h4 className="text-center">{questions[0].university})</h4> : null}
                 <div className="row">
