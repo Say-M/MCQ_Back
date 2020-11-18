@@ -338,7 +338,7 @@ const PracticeFrom = () => {
         {isAlert ?
             <Alert alClass={alertClass} text={alertText} /> : null}
         {isSpin ? <Spinner /> : null}
-        {!addQuestion ?
+        {addQuestion ?
             <form className="form" onSubmit={handleSubmit}>
                 <div className="container">
                     <h3 className="text-center">Add New Question Set</h3>
