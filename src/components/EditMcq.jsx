@@ -164,11 +164,8 @@ const PracticeFrom = () => {
             ]
         })
     }
-    const handleOptChange = (e, id, key) => {
-        optInput[key].options[id] = e.target.value;
-        if (scripts.isSub || scripts.isSup) {
-            optInput[key].options[id] = supSubControl(e.target.value)
-        }
+    const handleOptChange = (content, id, key) => {
+        optInput[key].options[id] = content;
         setOptInput(prevOpt => {
             return [...prevOpt]
 
@@ -453,7 +450,10 @@ const PracticeFrom = () => {
                                 return <div key={i} className="form-group row justify-content-md-center">
                                     <label className="col-sm-2 col-form-label">Option {i + 1}</label>
                                     <div className="col-sm-10  col-md-6">
-                                        <input placeholder={"Option " + (i + 1)} className="form-control" type="text" value={opts.options[i]} onChange={evt => handleOptChange(evt, i, ind)} />
+                                    <SunEditor setOptions={{
+                                            buttonList: [
+                                                ['undo', 'redo'], ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],]
+                                        }} placeholder={"Option " + (i + 1)} name="quesTitle" onChange={content => handleOptChange(content, i, ind)} setContents={opts.options[i]}></SunEditor>
                                     </div>
                                 </div>
                             })}
