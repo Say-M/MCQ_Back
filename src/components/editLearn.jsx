@@ -393,10 +393,10 @@ const LearnForm = () => {
                                 </div>
                                 <div className="form-group row justify-content-md-center">
                                     <label className="col-sm-2 col-form-label">Size</label>
-                                    <div className="col-md-4">
+                                    <div className="col-md-4 mb-3">
                                         <input type="number" placeholder="Size" name="size" value={file.size} className="form-control" onChange={evt => fileChange(evt, ind)} />
                                     </div>
-                                    <div className="col-md-2">
+                                    <div className="col-md-2 mb-3">
                                         <select className="custom-select" name="timeCondition" value={file.timeCondition} onChange={evt => fileChange(evt, ind)}>
                                             <option value="Minuites">Minuites</option>
                                             <option value="Seconds">Seconds</option>
@@ -417,7 +417,7 @@ const LearnForm = () => {
 
                         <div className="form-group row justify-content-md-center">
                             <div className="col-md-8">
-                                <div className="float-left"><button type="button" className="btn btn-outline-dark mr-3" onClick={prevFile}>Prev</button></div>
+                                <div className="float-left"><button type="button" className="btn btn-outline-dark mr-3" onClick={prevFile}>Previous</button></div>
                                 <div className="float-right"><button type="button" className="btn btn-outline-dark" onClick={addFile}>Next</button></div>
                             </div>
                         </div>

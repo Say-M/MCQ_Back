@@ -77,11 +77,20 @@ body {
 }
 
 .custom-alert {
-  position: absolute;
-  right: 1rem;
-  top: 4rem;
-  width: 350px;
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  width: auto;
   z-index: 111;
+}
+
+@media screen and (max-width: 767.98px) {
+  .custom-alert {
+    top: 1rem;
+    right: 1rem;
+    left: unset;
+    bottom: unset;
+  }
 }
 
 .custom-select {
@@ -98,7 +107,7 @@ body {
   display: -ms-grid;
   display: grid;
   place-items: center;
-  background: #ffffffad;
+  background: #f5f8fa;
 }
 
 .loading .spinner {

@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { v4 as uuid4 } from 'uuid';
-import db, { storage } from "./firebase_config";
+import React, { useEffect, useState } from "react"
+import { v4 as uuid4 } from 'uuid'
+import db, { storage } from "./firebase_config"
 import Input from "./Input"
 import CustomSelect from "./CustomSelect"
 import Spinner from "./Spinner"
-import Alert from "./Alert";
+import Alert from "./Alert"
+import SunEditor from 'suneditor-react'
+import 'suneditor/dist/css/suneditor.min.css'
 
 const PracticeFrom = () => {
     const [formValue, setFormValue] = useState({
@@ -129,11 +131,9 @@ const PracticeFrom = () => {
         uploadDataToFirestore();
     }
 
-    const questionChange = (e, key) => {
-        optInput[key].question = e.target.value;
-        if (scripts.isSub || scripts.isSup) {
-            optInput[key].question = supSubControl(e.target.value)
-        }
+
+    const sunEditorChange = (content, key) => {
+        optInput[key].question = content;
         setOptInput(prevOpt => {
             return [
                 ...prevOpt
@@ -338,7 +338,7 @@ const PracticeFrom = () => {
         {isAlert ?
             <Alert alClass={alertClass} text={alertText} /> : null}
         {isSpin ? <Spinner /> : null}
-        {!addQuestion ?
+        {addQuestion ?
             <form className="form" onSubmit={handleSubmit}>
                 <div className="container">
                     <h3 className="text-center">Add New Question Set</h3>
@@ -408,12 +408,15 @@ const PracticeFrom = () => {
                             <div className="form-group row justify-content-md-center">
                                 <label className="col-sm-2 col-form-label">Title</label>
                                 <div className="col-sm-10 col-md-6 col-md-6">
-                                    <textarea placeholder="Question Title" name="quesTitle" className="form-control" onChange={evt => questionChange(evt, ind)} value={opts.question}></textarea>
+                                    <SunEditor height="10rem" setOptions={{
+                                        buttonList: [
+                                            ['undo', 'redo'], ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],]
+                                    }} placeholder="Question Title" name="quesTitle" onInput={e => console.log(e.target)} onChange={content => sunEditorChange(content, ind)} setContents={opts.question}></SunEditor>
                                 </div>
                             </div>
-                            <div className="form-group row justify-content-md-center">
+                            <div className="form-group row justify-content-center">
                                 <div className="text-center">
-                                    <img style={{ width: "200px" }} src={queImg[ind]} alt="" />
+                                    <img className="rounded-lg" style={{ width: "200px" }} src={queImg[ind]} alt="" />
                                 </div>
                             </div>
                             <div className="form-group row justify-content-md-center">
@@ -448,8 +451,12 @@ const PracticeFrom = () => {
                             </div>
                             <div className="form-group row justify-content-md-center">
                                 <div className="col-md-8">
-                                    <div className="float-left"><button className="btn btn-outline-dark mr-3" type="button" onClick={prevQues}>Prev</button></div>
-                                    <div className="float-right"><button className="btn btn-outline-dark" type="button" onClick={addQues}>Next</button></div>
+                                    <div className="float-left">
+                                        <button className="btn btn-outline-dark mr-3" type="button" onClick={prevQues}>Previous</button>
+                                    </div>
+                                    <div className="float-right">
+                                        <button className="btn btn-outline-dark" type="button" onClick={addQues}>Next</button>
+                                    </div>
                                 </div>
                             </div>
                             <div className="form-group mt-5 text-center">
