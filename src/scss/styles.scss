@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500;1,700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
 
 * {
   margin: 0;
@@ -18,7 +18,7 @@ html {
   }
 }
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   font-size: 1rem;
   color: #323232;
 }
@@ -65,7 +65,7 @@ body {
   }
 }
 .custom-select {
-  background: #fff url("./images/br_down.webp") no-repeat right 0.75rem
+  background: #fff url('./images/br_down.webp') no-repeat right 0.75rem
     center/9px 9px;
 }
 .loading {
@@ -87,13 +87,37 @@ body {
   margin-top: 1rem;
 }
 /* Chrome, Safari, Edge, Opera */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   -moz-appearance: textfield;
+}
+.questions {
+  .question-title {
+    background: #fff;
+    padding: 1.5rem 1rem;
+    border-radius: 0.4rem;
+    margin-bottom: 1rem;
+    p {
+      margin-bottom: 0;
+    }
+  }
+  ul {
+    list-style: none;
+    margin-bottom: 3rem;
+    li {
+      padding: 0.7rem 1rem;
+      margin-bottom: 0.4rem;
+      border-radius: 0.4rem;
+      background: #fff;
+      p {
+        margin-bottom: 0;
+      }
+    }
+  }
 }

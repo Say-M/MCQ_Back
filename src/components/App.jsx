@@ -11,6 +11,7 @@ import University from './University';
 import McqTable from './McqTable';
 import Mcq from './Mcq';
 import EditMcq from './EditMcq';
+import "../dist/styles.min.css"
 
 function App() {
   return <>
