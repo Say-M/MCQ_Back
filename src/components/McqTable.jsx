@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import db, {storage} from "./firebase_config";
+import db, { storage } from "./firebase_config";
 import Spinner from "./Spinner";
 import Alert from "./Alert";
 
 const McqTable = () => {
     const [isSpin, setSpin] = useState(true)
     const [questions, setQuestions] = useState([])
-    const categroys = ["HSC", "Admission", "Olympaid"]
+    const categories = ["HSC", "Admission", "Olympaid"]
     const [categoryValue, setCategoryValue] = useState({
         category: "HSC",
         university: "",
@@ -55,13 +55,13 @@ const McqTable = () => {
             }
         })
     }
-    const getId = (que)=> (e) => {
+    const getId = (que) => (e) => {
         e.preventDefault()
         setId(e.target.id);
         setdeleteQuestion(que)
     }
 
-    const deleteDocument = ()=>{
+    const deleteDocument = () => {
         const snap = db
             .collection("question")
             .doc(id)
@@ -101,11 +101,11 @@ const McqTable = () => {
             })
     }
 
-    const fileDeleteTask = async (url)=>{
+    const fileDeleteTask = async (url) => {
         const imageRef = storage.refFromURL(url);
-        imageRef.delete().then(()=>{
+        imageRef.delete().then(() => {
             return true
-        }).catch((e)=>{
+        }).catch((e) => {
             return false
         })
     }
@@ -113,17 +113,17 @@ const McqTable = () => {
     const clDelete = () => {
         setSpin(true);
         const mcq = deleteQuestion.mcq;
-        const imageFilesList = mcq.filter(q=> q.image && q.image !== "");
-        if(imageFilesList.length){
-            imageFilesList.forEach((f,index)=>{
-                fileDeleteTask(f.image).then(success=>{
-                    if(index >= imageFilesList.length - 1){
+        const imageFilesList = mcq.filter(q => q.image && q.image !== "");
+        if (imageFilesList.length) {
+            imageFilesList.forEach((f, index) => {
+                fileDeleteTask(f.image).then(success => {
+                    if (index >= imageFilesList.length - 1) {
                         deleteDocument()
                     }
                 })
             })
         }
-        else{
+        else {
             deleteDocument()
         }
 
@@ -138,7 +138,7 @@ const McqTable = () => {
                 <div className="form-row">
                     <div className="form-group col-sm-6 col-lg-3">
                         <select className="custom-select" value={categoryValue.category} name="category" onChange={handleChange}>
-                            {categroys.map((categroy, i) => <option key={i} value={categroy}>{categroy}</option>)}
+                            {categories.map((category, i) => <option key={i} value={category}>{category}</option>)}
                         </select>
                     </div>
                 </div>
@@ -147,7 +147,7 @@ const McqTable = () => {
                         <thead className="thead-light">
                             <tr>
                                 <th scope="col" style={{ width: "400px" }}>Title</th>
-                                <th scope="col">Categroy</th>
+                                <th scope="col">Category</th>
                                 <th scope="col">Total Question</th>
                                 <th scope="col">Total Marks</th>
                                 {categoryValue.category === "Admission" ? <th scope="col">University</th> : null}

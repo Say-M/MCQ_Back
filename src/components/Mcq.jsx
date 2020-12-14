@@ -35,7 +35,7 @@ const Mcq = () => {
                             <div className="question-card shadow-sm rounded">
                                 <div>
                                     <h5><strong>Total questions:</strong> {questions[0].total}</h5>
-                                    <p><strong>Total marks:</strong> {questions[0].totalMark}</p>
+                                    <p><strong>Total marks:</strong> {questions[0].markPerQuestion * questions[0].total}</p>
                                 </div>
                                 <div><i className="far fa-question-circle bg-info"></i></div>
                             </div>
@@ -54,7 +54,7 @@ const Mcq = () => {
                             <div className="question-card shadow-sm rounded">
                                 <div>
                                     <h5><strong>Duration:</strong> {`${questions[0].hour}:${questions[0].min}:${questions[0].sec}`}</h5>
-                                    <p><strong>Marks:</strong> {questions[0].pass}</p>
+                                    <p><strong>Pass Marks:</strong> {questions[0].pass}</p>
                                 </div>
                                 <div><i className="far fa-clock bg-info"></i></div>
                             </div>

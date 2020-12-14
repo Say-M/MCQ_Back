@@ -13,7 +13,7 @@ const PracticeFrom = () => {
         title: "",
         category: "HSC",
         university: "",
-        totalMark: "",
+        markPerQuestion: "",
         pass: "",
         duration: "",
         hour: "00",
@@ -92,7 +92,7 @@ const PracticeFrom = () => {
     //input component onchange
     const handleChange = (evt) => {
         let { name, value } = evt.target;
-        if (name === "pass" || name === "totalMark" || name === "hour" || name === "min" || name === "sec") {
+        if (name === "pass" || name === "markPerQuestion" || name === "hour" || name === "min" || name === "sec") {
             value = parseInt(value);
         }
         setFormValue(prevValue => {
@@ -111,8 +111,8 @@ const PracticeFrom = () => {
     //Practice submit
     const handleSubmit = (e) => {
         e.preventDefault();
-        const { title, category, pass, hour, min, sec, totalMark } = formValue;
-        if (title !== "" && category !== "" && pass > 0 && totalMark > 0 && hour >= 0 && min >= 0 && sec >= 0) {
+        const { title, category, pass, hour, min, sec, markPerQuestion } = formValue;
+        if (title !== "" && category !== "" && pass > 0 && markPerQuestion > 0 && hour >= 0 && min >= 0 && sec >= 0) {
             setAddQuestion(false)
         } else {
             setAlert(true);
@@ -239,7 +239,7 @@ const PracticeFrom = () => {
                                 title: "",
                                 category: "HSC",
                                 university: "",
-                                totalMark: "",
+                                markPerQuestion: "",
                                 pass: "",
                                 duration: "",
                                 hour: "",
@@ -364,7 +364,7 @@ const PracticeFrom = () => {
                     <div className="form-group row justify-content-md-center">
                         <label className="col-sm-2 col-form-label">Mark Per Question</label>
                         <div className="col-sm-10 col-md-6">
-                            <Input placeholder="Total Marks" clName="form-control" type="number" name="totalMark" func={handleChange} val={formValue.totalMark} />
+                            <Input placeholder="Total Marks" clName="form-control" type="number" name="markPerQuestion" func={handleChange} val={formValue.markPerQuestion} />
                         </div>
                     </div>
                     <div className="form-group row justify-content-md-center">

@@ -12,6 +12,7 @@ import McqTable from './McqTable';
 import Mcq from './Mcq';
 import EditMcq from './EditMcq';
 import "../dist/styles.min.css"
+import Students from './Students';
 
 function App() {
   return <>
@@ -27,6 +28,7 @@ function App() {
       <Route exact path="/mcq/:id" component={Mcq} />
       <Route exact path="/edit_mcq/:id" component={EditMcq} />
       <Route exact path="/edit_learn/:id" component={editLearn} />
+      <Route exact path="/students" component={Students} />
       <Redirect to={"/mcq_lists"} />
     </Switch>
   </>

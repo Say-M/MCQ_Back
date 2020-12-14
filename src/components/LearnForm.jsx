@@ -38,8 +38,7 @@ const LearnForm = () => {
     const category = ["HSC", "Admission", "Olympiad"];
     useEffect(() => {
         let arr = [];
-        const snap = db
-            .collection("university")
+        db.collection("university")
             .get()
             .then((snap) => {
                 snap.forEach((d) => {
@@ -52,12 +51,11 @@ const LearnForm = () => {
 
     useEffect(() => {
         let arr = [];
-        const snapshot = db
-            .collection("chapter")
+        db.collection("chapter")
             .get()
             .then((snapshot) => {
                 snapshot.forEach((doc) => {
-                    arr.push(doc.data()?.title);
+                    arr.push(doc.data()?.name);
                 });
                 setChapter(arr);
                 updateInfoForm({ chapter: arr[0] });
