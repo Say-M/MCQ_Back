@@ -34,6 +34,7 @@ const Students = () => {
                                 <thead className="thead-light">
                                     <tr>
                                         <th>Name</th>
+                                        <th>Phone</th>
                                         <th>Guardian Name</th>
                                         <th>Guardian Phone</th>
                                         <th>School/College</th>
@@ -42,6 +43,7 @@ const Students = () => {
                                 <tbody>
                                     {students.map((student, i) => (<tr key={i}>
                                         <td>{student.name}</td>
+                                        <td>{student.phone}</td>
                                         <td>{student.guardianName}</td>
                                         <td>{student.guardianPhone}</td>
                                         <td>{student.school}</td>

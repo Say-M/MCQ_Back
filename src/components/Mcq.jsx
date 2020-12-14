@@ -28,7 +28,7 @@ const Mcq = () => {
     }, []);
     return <>
         <div className="bg-light">
-            <div className="container mb-5">
+            <div className="container pb-1">
                 {isSpin ? <Spinner /> : <>
                     <div className="row pt-4 mb-5">
                         <div className="col-lg-4">
