@@ -29,19 +29,39 @@ const Mcq = () => {
     return <>
         <div className="bg-light">
             <div className="container mb-5">
-                {isSpin ? <Spinner /> : <><h2 className="text-center pt-3">{questions[0].category}</h2>
-                    <h3 className="text-center mb-3">{questions[0].title}</h3>
-                    {questions[0].category === "Admission" ? <h4 className="text-center">{questions[0].university})</h4> : null}
-                    <div className="row">
-                        <div className="col-6">
-                            <p><strong>Total questions:</strong> {questions[0].total}</p>
-                            <p><strong>Total marks:</strong> {questions[0].totalMark}</p>
+                {isSpin ? <Spinner /> : <>
+                    <div className="row pt-4 mb-5">
+                        <div className="col-lg-4">
+                            <div className="question-card shadow-sm rounded">
+                                <div>
+                                    <h5><strong>Total questions:</strong> {questions[0].total}</h5>
+                                    <p><strong>Total marks:</strong> {questions[0].totalMark}</p>
+                                </div>
+                                <div><i className="far fa-question-circle bg-info"></i></div>
+                            </div>
                         </div>
-                        <div className="col-6 text-right">
-                            <p><strong>Duration:</strong> {`${questions[0].hour}:${questions[0].min}:${questions[0].sec}`}</p>
-                            <p><strong>Marks:</strong> {questions[0].pass}</p>
+                        <div className="col-lg-4">
+                            <div className="question-card shadow-sm rounded">
+                                <div>
+                                    <h4>{questions[0].category}</h4>
+                                    {questions[0].category === "Admission" && <h5>{questions[0].university}</h5>}
+                                    <p>{questions[0].title}</p>
+                                </div>
+                                <div><i className="fas fa-pen-fancy bg-info"></i></div>
+                            </div>
+                        </div>
+                        <div className="col-lg-4">
+                            <div className="question-card shadow-sm rounded">
+                                <div>
+                                    <h5><strong>Duration:</strong> {`${questions[0].hour}:${questions[0].min}:${questions[0].sec}`}</h5>
+                                    <p><strong>Marks:</strong> {questions[0].pass}</p>
+                                </div>
+                                <div><i className="far fa-clock bg-info"></i></div>
+                            </div>
                         </div>
                     </div>
+
+
                     {questions[0].mcq.map((que, i) => {
                         return <div key={i} className="my-3 questions">
                             <div className="shadow-sm question-title"><strong><span className="float-left mr-2">{i + 1}.</span> <span dangerouslySetInnerHTML={createMarkup(que.question)}></span></strong></div>
