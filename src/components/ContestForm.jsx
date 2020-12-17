@@ -361,9 +361,10 @@ const ContestForm = () => {
                                 <label className="col-sm-2 col-form-label">University Type</label>
                                 <div className="col-sm-10 col-md-6">
                                     <select className="custom-select" name="universityType" onChange={handleChange} value={formValue.universityType}>
-                                        <option value="General Line">General Line</option>
+                                        <option value="Generalized">Generalized</option>
                                         <option value="Public University">Public University</option>
                                         <option value="Engineering University">Engineering University</option>
+                                        <option value="Science and Technology University">Science and Technology University</option>
                                     </select>
                                 </div>
                             </div>
@@ -408,11 +409,11 @@ const ContestForm = () => {
                     <div className="form-group row justify-content-md-center">
                         <label className="col-sm-2 col-form-label">Contest Duration</label>
                         <div className="col-sm-3 col-md-2">
-                            <Input placeholder="Start From" clName="form-control" type="time" name="startFrom" func={handleChange} val={formValue.startFrom} />
+                            <Input placeholder="Start From" clName="form-control" type="date" name="startFrom" func={handleChange} val={formValue.startFrom} />
                         </div>
                         <label className="col-sm-1 text-nowrap pl-sm-0 col-form-label">Start Form</label>
                         <div className="col-sm-3 col-md-2">
-                            <Input placeholder="End At" clName="form-control" type="time" name="endAt" func={handleChange} val={formValue.endAt} />
+                            <Input placeholder="End At" clName="form-control" type="date" name="endAt" func={handleChange} val={formValue.endAt} />
                         </div>
                         <label className="col-sm-1 text-nowrap pl-sm-0 col-form-label">End At</label>
                     </div>

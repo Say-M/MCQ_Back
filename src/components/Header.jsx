@@ -19,13 +19,13 @@ const Header = () => {
                             <NavLink exact className="nav-link" to="/learn">Contents</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink exact className="nav-link" to="/university">University</NavLink>
+                            <NavLink exact className="nav-link" to="/contest">Contest</NavLink>
                         </li>
                         <li className="nav-item">
                             <NavLink exact className="nav-link" to="/students">Students</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink exact className="nav-link" to="/contest">Contest</NavLink>
+                            <NavLink exact className="nav-link" to="/university">University</NavLink>
                         </li>
                     </ul>
                 </div>

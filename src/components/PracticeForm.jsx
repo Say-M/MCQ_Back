@@ -355,9 +355,10 @@ const PracticeFrom = () => {
                                 <label className="col-sm-2 col-form-label">University Type</label>
                                 <div className="col-sm-10 col-md-6">
                                     <select className="custom-select" name="universityType" onChange={handleChange} value={formValue.universityType}>
-                                        <option value="General Line">General Line</option>
+                                        <option value="Generalized">Generalized</option>
                                         <option value="Public University">Public University</option>
                                         <option value="Engineering University">Engineering University</option>
+                                        <option value="Science and Technology University">Science and Technology University</option>
                                     </select>
                                 </div>
                             </div>
