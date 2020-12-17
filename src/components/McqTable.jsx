@@ -157,8 +157,10 @@ const McqTable = () => {
                         </thead>
                         <tbody>
                             {questions.map((question, i) => <tr key={i}><td>{question.title}</td>
-                                <td>{question.category}</td><td>{question.total}</td>
-                                <td>{question.totalMark}</td>{categoryValue.category === "Admission" ? <td>{question.university}</td> : null}
+                                <td>{question.category}</td>
+                                <td>{question.total}</td>
+                                <td>{question.markPerQuestion * question.total}</td>
+                                {categoryValue.category === "Admission" ? <td>{question.university}</td> : null}
                                 <td>{question.pass}</td>
                                 <td><NavLink className="btn-primary d-inline-block btn btn-sm" to={"mcq/" + question.id}><i className="fas fa-eye"></i></NavLink>
                                     <NavLink className="ml-2 d-inline-block btn-info btn btn-sm" to={"edit_mcq/" + question.id}><i className="fas fa-edit"></i></NavLink>

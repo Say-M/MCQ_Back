@@ -20,6 +20,7 @@ const PracticeFrom = () => {
         min: "00",
         sec: "00",
         total: 0,
+        type: "mcq",
     });
 
     document.title = "ChemGenie | Add a new question"
@@ -63,32 +64,10 @@ const PracticeFrom = () => {
         question: "",
         image: "",
         options: ["", ""],
-        rightAnswer: 1,
+        rightAnswer: "1",
     }])
-    //sup and sub script
-    const [scripts, setScript] = useState({
-        isSup: false,
-        isSub: false,
-    })
-    const supSubControl = (val) => {
-        let new_val = "";
-        const start = scripts.isSub ? "<sub><small> " : "<sup><small>";
-        const end = scripts.isSub ? "</small></sub>" : "</small></sup>";
-        const re = new RegExp(`.*${end}.$`);
-        if (val.match(re)) {
-            new_val =
-                val.slice(0, val.length - 15) +
-                val.charAt(val.length - 1) +
-                end;
-        } else {
-            new_val =
-                val.slice(0, val.length - 1) +
-                start +
-                val.charAt(val.length - 1) +
-                end;
-        }
-        return new_val;
-    }
+
+
     //input component onchange
     const handleChange = (evt) => {
         let { name, value } = evt.target;
@@ -101,6 +80,17 @@ const PracticeFrom = () => {
                 [name]: value
             }
         })
+        if (value === "written") {
+            setOptInput([{
+                question: "",
+                image: "",
+            }])
+        } else setOptInput([{
+            question: "",
+            image: "",
+            options: ["", ""],
+            rightAnswer: "1",
+        }])
     }
     //University input
     if (formValue.category === "Admission") {
@@ -164,12 +154,19 @@ const PracticeFrom = () => {
 
     const addQues = () => {
         if (queIndex === (optInput.length - 1)) {
-            setOptInput(prevOpt => {
+            if (formValue.type === "mcq")
+                setOptInput(prevOpt => {
+                    return [...prevOpt, {
+                        question: "",
+                        image: "",
+                        options: ["", ""],
+                        rightAnswer: "1"
+                    }]
+                })
+            else setOptInput(prevOpt => {
                 return [...prevOpt, {
                     question: "",
                     image: "",
-                    options: ["", ""],
-                    rightAnswer: "1"
                 }]
             })
         }
@@ -180,20 +177,8 @@ const PracticeFrom = () => {
             setQueIndex(queIndex - 1);
         }
     }
-    const supScript = () => {
-        if (scripts.isSup) {
-            setScript({ isSup: false, isSub: false })
-        } else {
-            setScript({ isSup: true, isSub: false })
-        }
-    }
-    const subScript = () => {
-        if (scripts.isSub) {
-            setScript({ isSup: false, isSub: false })
-        } else {
-            setScript({ isSup: false, isSub: true })
-        }
-    }
+
+
 
     //Upload Data
     const uploadDataToFirestore = async () => {
@@ -388,6 +373,15 @@ const PracticeFrom = () => {
                         </div>
                         <label className="col-sm-2 col-md-1 pl-sm-0 col-form-label">Sec</label>
                     </div>
+                    <div className="form-group row justify-content-md-center">
+                        <label className="col-sm-2 col-form-label">Type</label>
+                        <div className="col-sm-10 col-md-6">
+                            <select className="custom-select" name="type" onChange={handleChange} value={formValue.type}>
+                                <option value="mcq">MCQ</option>
+                                <option value="written">Written</option>
+                            </select>
+                        </div>
+                    </div>
                     <div className="text-center form-group mt-5">
                         <button type="submit" className="btn px-5 btn-outline-primary">Next</button>
                     </div>
@@ -398,17 +392,13 @@ const PracticeFrom = () => {
                     return <form key={ind} className="form" onSubmit={handleOptSubmit} style={queIndex !== ind ? { display: "none" } : { display: "inherit" }}>
                         <div className="container">
                             <h3 className="text-center">Question no : {queIndex + 1} and total : {optInput.length}</h3>
-                            <div className="scripts row pr-0 col-md-10">
-                                <div className={scripts.isSup ? 'active' : null} onClick={supScript}><i className="fas fa-superscript"></i></div>
-                                <div className={scripts.isSub ? 'active' : null} onClick={subScript}><i className="fas fa-subscript"></i></div>
-                            </div>
                             <div className="form-group row justify-content-md-center">
                                 <label className="col-sm-2 col-form-label">Title</label>
                                 <div className="col-sm-10 col-md-6 col-md-6">
                                     <SunEditor height="10rem" setOptions={{
                                         buttonList: [
                                             ['undo', 'redo'], ['bold', 'underline', 'italic', 'strike', 'subscript', 'superscript'],]
-                                    }} placeholder="Question Title" name="quesTitle" onInput={e => console.log(e.target)} onChange={content => sunEditorChange(content, ind)} setContents={opts.question}></SunEditor>
+                                    }} placeholder="Question Title" name="quesTitle" onChange={content => sunEditorChange(content, ind)} setContents={opts.question}></SunEditor>
                                 </div>
                             </div>
                             <div className="form-group row justify-content-center">
@@ -425,7 +415,7 @@ const PracticeFrom = () => {
                                     </div>
                                 </div>
                             </div>
-                            {opts.options.map((input, i) => {
+                            {opts?.options && opts.options.map((input, i) => {
                                 return <div key={i} className="form-group row justify-content-md-center">
                                     <label className="col-sm-2 col-form-label">Option {i + 1}</label>
                                     <div className="col-sm-10 col-md-6 col-md-6">
@@ -436,10 +426,10 @@ const PracticeFrom = () => {
                                     </div>
                                 </div>
                             })}
-                            <div className="form-group text-center">
+                            {opts?.options && <div className="form-group text-center">
                                 <button className="btn btn-outline-primary" type="button" onClick={evt => addOpt(evt, ind)}>Add New Option</button>
-                            </div>
-                            <div className="form-group row justify-content-md-center">
+                            </div>}
+                            {opts?.options && <div className="form-group row justify-content-md-center">
                                 <label className="col-sm-2 col-form-label">Answer</label>
                                 <div className="col-sm-10  col-md-6">
                                     <select className="custom-select" value={opts.rightAnswer} onChange={evt => handleSelChange(evt, ind)}>
@@ -448,7 +438,7 @@ const PracticeFrom = () => {
                                         })}
                                     </select>
                                 </div>
-                            </div>
+                            </div>}
                             <div className="form-group row justify-content-md-center">
                                 <div className="col-md-8">
                                     <div className="float-left">
