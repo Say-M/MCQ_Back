@@ -12,6 +12,7 @@ const PracticeFrom = () => {
     const [formValue, setFormValue] = useState({
         title: "",
         category: "HSC",
+        universityType: "General Line",
         university: "",
         markPerQuestion: "",
         pass: "",
@@ -46,8 +47,9 @@ const PracticeFrom = () => {
     };
     useEffect(() => {
         let arr = [];
-        const snap = db
+        db
             .collection("university")
+            .where("type", "==", formValue.universityType)
             .get()
             .then((snap) => {
                 snap.forEach((d) => {
@@ -56,7 +58,7 @@ const PracticeFrom = () => {
                 setUniversitys(arr);
                 updateQueSetInfo({ university: arr[0]?.name });
             });
-    }, []);
+    }, [formValue.universityType]);
     //Question Image
     const [queImg, setQueImg] = useState([]);
     //Option
@@ -99,10 +101,10 @@ const PracticeFrom = () => {
         isAdmission = false;
     }
     //Practice submit
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleNext = (e) => {
         const { title, category, pass, hour, min, sec, markPerQuestion } = formValue;
-        if (title !== "" && category !== "" && pass > 0 && markPerQuestion > 0 && hour >= 0 && min >= 0 && sec >= 0) {
+        const time = hour + min + sec
+        if (title !== "" && category !== "" && pass > 0 && markPerQuestion > 0 && time > 0) {
             setAddQuestion(false)
         } else {
             setAlert(true);
@@ -231,6 +233,7 @@ const PracticeFrom = () => {
                                 min: "",
                                 sec: "",
                                 total: 0,
+                                type: "mcq",
                             });
                             setSpin(false);
                         })
@@ -321,7 +324,7 @@ const PracticeFrom = () => {
             <Alert alClass={alertClass} text={alertText} /> : null}
         {isSpin ? <Spinner /> : null}
         {addQuestion ?
-            <form className="form" onSubmit={handleSubmit}>
+            <form className="form">
                 <div className="container">
                     <h3 className="text-center">Add New Question Set</h3>
                     <div className="form-group row justify-content-md-center">
@@ -336,16 +339,29 @@ const PracticeFrom = () => {
                             <CustomSelect clName="custom-select" func={handleChange} name="category" val={formValue.category} options={categorys} />
                         </div>
                     </div>
-                    {isAdmission ?
-                        <div className="form-group row justify-content-md-center">
-                            <label className="col-sm-2 col-form-label">University</label>
-                            <div className="col-sm-10 col-md-6">
-                                <select className="custom-select" onChange={handleChange} name="university" val={formValue.university}  >
-                                    {universitys.map((versity, i) => <option key={i} value={versity.name}>{versity.name}</option>)}
-                                </select>
+                    {isAdmission &&
+                        <>
+                            <div className="form-group row justify-content-md-center">
+                                <label className="col-sm-2 col-form-label">University Type</label>
+                                <div className="col-sm-10 col-md-6">
+                                    <select className="custom-select" name="universityType" onChange={handleChange} value={formValue.universityType}>
+                                        <option value="General Line">General Line</option>
+                                        <option value="Public University">Public University</option>
+                                        <option value="Engineering University">Engineering University</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        : null}
+                            {formValue.universityType !== "General Line" &&
+                                <div className="form-group row justify-content-md-center">
+                                    <label className="col-sm-2 col-form-label">University</label>
+                                    <div className="col-sm-10 col-md-6">
+                                        <select className="custom-select" onChange={handleChange} name="university" val={formValue.university}  >
+                                            {universitys.map((versity, i) => <option key={i} value={versity.name}>{versity.name}</option>)}
+                                        </select>
+                                    </div>
+                                </div>}
+                        </>
+                    }
                     <div className="form-group row justify-content-md-center">
                         <label className="col-sm-2 col-form-label">Mark Per Question</label>
                         <div className="col-sm-10 col-md-6">
@@ -383,7 +399,7 @@ const PracticeFrom = () => {
                         </div>
                     </div>
                     <div className="text-center form-group mt-5">
-                        <button type="submit" className="btn px-5 btn-outline-primary">Next</button>
+                        <span onClick={handleNext} className="btn px-5 btn-outline-primary">Next</span>
                     </div>
                 </div>
             </form> :
