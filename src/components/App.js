@@ -13,6 +13,7 @@ import Mcq from './Mcq';
 import EditMcq from './EditMcq';
 import "../dist/styles.min.css"
 import Students from './Students';
+import ContestFrom from './ContestForm';
 
 function App() {
   return <>
@@ -29,6 +30,7 @@ function App() {
       <Route exact path="/edit_mcq/:id" component={EditMcq} />
       <Route exact path="/edit_learn/:id" component={editLearn} />
       <Route exact path="/students" component={Students} />
+      <Route exact path="/contest" component={ContestFrom} />
       <Redirect to={"/mcq_lists"} />
     </Switch>
   </>

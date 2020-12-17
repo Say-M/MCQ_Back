@@ -8,7 +8,7 @@ import Alert from "./Alert"
 import SunEditor from 'suneditor-react'
 import 'suneditor/dist/css/suneditor.min.css'
 
-const PracticeFrom = () => {
+const ContestForm = () => {
     const [formValue, setFormValue] = useState({
         title: "",
         category: "HSC",
@@ -22,6 +22,9 @@ const PracticeFrom = () => {
         sec: "00",
         total: 0,
         type: "mcq",
+        startFrom: "",
+        endAt: "",
+        contestType: "online"
     });
 
     document.title = "ChemGenie | Add a new question"
@@ -200,7 +203,7 @@ const PracticeFrom = () => {
         data.total = optInput.length;
         console.log(data);
         let mcqCount = 0;
-        const document = db.collection("question").doc();
+        const document = db.collection("contest").doc();
         data.mcq.forEach((mcq, index) => {
             fileUploadTaskToStorage(mcq.image, (link) => {
                 if (link !== 1) {
@@ -244,6 +247,9 @@ const PracticeFrom = () => {
                                 sec: "",
                                 total: 0,
                                 type: "mcq",
+                                startFrom: "",
+                                endAt: "",
+                                contestType: ""
                             });
                             setSpin(false);
                         })
@@ -400,11 +406,31 @@ const PracticeFrom = () => {
                         <label className="col-sm-2 col-md-1 pl-sm-0 col-form-label">Sec</label>
                     </div>
                     <div className="form-group row justify-content-md-center">
+                        <label className="col-sm-2 col-form-label">Contest Duration</label>
+                        <div className="col-sm-3 col-md-2">
+                            <Input placeholder="Start From" clName="form-control" type="time" name="startFrom" func={handleChange} val={formValue.startFrom} />
+                        </div>
+                        <label className="col-sm-1 text-nowrap pl-sm-0 col-form-label">Start Form</label>
+                        <div className="col-sm-3 col-md-2">
+                            <Input placeholder="End At" clName="form-control" type="time" name="endAt" func={handleChange} val={formValue.endAt} />
+                        </div>
+                        <label className="col-sm-1 text-nowrap pl-sm-0 col-form-label">End At</label>
+                    </div>
+                    <div className="form-group row justify-content-md-center">
                         <label className="col-sm-2 col-form-label">Type</label>
                         <div className="col-sm-10 col-md-6">
                             <select className="custom-select" name="type" onChange={handleChange} value={formValue.type}>
                                 <option value="mcq">MCQ</option>
                                 <option value="written">Written</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="form-group row justify-content-md-center">
+                        <label className="col-sm-2 col-form-label">Contest Type</label>
+                        <div className="col-sm-10 col-md-6">
+                            <select className="custom-select" name="contestType" onChange={handleChange} value={formValue.contestType}>
+                                <option value="online">Online</option>
+                                <option value="offline">Offline</option>
                             </select>
                         </div>
                     </div>
@@ -487,4 +513,4 @@ const PracticeFrom = () => {
     </>
 }
 
-export default PracticeFrom;
+export default ContestForm;
