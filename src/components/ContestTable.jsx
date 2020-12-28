@@ -162,7 +162,7 @@ const ContestTable = () => {
                                 <td>{question.markPerQuestion * question.total}</td>
                                 {categoryValue.category === "Admission" ? <td>{question.university}</td> : null}
                                 <td>{question.pass}</td>
-                                <td><NavLink className="btn-primary d-inline-block btn btn-sm" to={"mcq/" + question.id}><i className="fas fa-eye"></i></NavLink>
+                                <td><NavLink className="btn-primary d-inline-block btn btn-sm" to={"mcq/contest/" + question.id}><i className="fas fa-eye"></i></NavLink>
                                     <NavLink className="ml-2 d-inline-block btn-info btn btn-sm" to={"edit_mcq/" + question.id}><i className="fas fa-edit"></i></NavLink>
                                     <NavLink className="ml-2 d-inline-block btn btn-danger btn-sm" id={question.id} data-toggle="modal" data-target="#delete" onClick={getId(question)} to="#"><i id={question.id} className="fas fa-trash"></i></NavLink></td></tr>)}
                         </tbody>

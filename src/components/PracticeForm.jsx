@@ -49,7 +49,6 @@ const PracticeFrom = () => {
                 return university.type === uvType
             })
         }
-        console.log(filter);
         setFilterUniversity(filter(formValue.universityType))
     }, [formValue])
 
@@ -131,6 +130,10 @@ const PracticeFrom = () => {
     const handleOptSubmit = (e) => {
         e.preventDefault();
         uploadDataToFirestore();
+
+        //check options are filled or not
+        // const isFilledOptions = optInput.every(option => option.question && option.rightAnswer)
+        // console.log(isFilledOptions);
     }
 
 

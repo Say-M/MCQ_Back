@@ -56,7 +56,7 @@ const ViewLearn = () => {
                         return <div key={i} className="my-3 col-md-6">
                             <p><strong>{(i + 1) + ". " + file.title}</strong><br /></p>
                             <p className="ml-3">
-                                <strong>Type: </strong>{file.type} and g<strong>Size: </strong>{file.size + " " + (file.time ? file.time : null)}<br />
+                                <strong>Type: </strong>{file.type} and <strong>Size: </strong>{file.size + " " + (file.time ? file.time : null)}<br />
                                 <a target="_blink" className="mt-2 d-inline-block btn btn-sm btn-outline-primary" href={file.url}>Download Now</a>
                             </p>
                         </div>

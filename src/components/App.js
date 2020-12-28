@@ -27,7 +27,7 @@ function App() {
       <Route exact path="/view_learn/:id" component={viewLearn} />
       <Route exact path="/university" component={University} />
       <Route exact path="/university/add_university" component={UniversityForm} />
-      <Route exact path="/mcq/:id" component={Mcq} />
+      <Route exact path="/mcq/:type/:id" component={Mcq} />
       <Route exact path="/edit_mcq/:id" component={EditMcq} />
       <Route exact path="/edit_learn/:id" component={editLearn} />
       <Route exact path="/students" component={Students} />

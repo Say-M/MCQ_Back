@@ -4,18 +4,21 @@ import db from "./firebase_config";
 import Spinner from "./Spinner";
 
 const Mcq = () => {
-    const { id } = useParams();
+    const { type, id } = useParams();
     const [isSpin, setSpin] = useState(true);
     const [questions, setQuestions] = useState([{ mcq: [] }])
+    const [collectionName, setCollectionName] = useState("")
     function createMarkup(htmlTag) {
         return { __html: htmlTag };
     }
     const banChar = ["ক", "খ", "গ", "ঘ", "ঙ", "চ", "ছ", "জ", "ঝ", "ঞ"];
     document.title = "ChemGenie | " + questions[0].title
     useEffect(() => {
+        type === "quiz" ? setCollectionName("question") : setCollectionName("contest")
+    }, [type, id])
+    useEffect(() => {
         let arr = [];
-        db
-            .collection("question")
+        collectionName && db.collection(collectionName)
             .where("id", "==", id)
             .get()
             .then((snap) => {
@@ -25,7 +28,7 @@ const Mcq = () => {
                 setQuestions(arr);
                 setSpin(false)
             });
-    }, []);
+    }, [collectionName, id])
     return <>
         <div className="bg-light">
             <div className="container pb-1">
@@ -68,12 +71,12 @@ const Mcq = () => {
                             {que.image ? <div className="text-center mb-3">
                                 <img className="img-thumbnail" style={{ width: "200px" }} src={que.image} alt="" />
                             </div> : null}
-                            <ul>
+                            {que?.options && <ul>
                                 {que.options.map((opt, i) => {
                                     return <li className="shadow-sm" key={i}><strong className="float-left mr-2">{banChar[i]}) </strong><span dangerouslySetInnerHTML={createMarkup(opt)}></span></li>
                                 })}
                                 <li className="shadow-sm"><strong>Answer:</strong> {banChar[que.rightAnswer - 1]}</li>
-                            </ul>
+                            </ul>}
                         </div>
                     })}
                 </>}
